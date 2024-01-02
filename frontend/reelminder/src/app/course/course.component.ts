@@ -1,17 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrl: './course.component.css'
 })
-export class CourseComponent implements OnInit {
+export class CourseComponent implements OnInit, AfterViewInit {
   public video: any;
   public player: any;
 
   ngOnInit() {
     this.video = 'dTLAWHWvtew';
     this.startPlayer();
+  }
+
+  ngAfterViewInit(): void {
+    // @ts-ignore
+    new FroalaEditor("#editor")
   }
 
   startPlayer() {
