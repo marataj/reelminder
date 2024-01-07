@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class SharedService {
 
- 
+// TODO: add type of course and note 
   constructor(private httpClient: HttpClient) {
     
    }
@@ -16,7 +16,28 @@ export class SharedService {
     return this.httpClient.get<any[]>(this.APIUrl+"/course/");
   };
 
-  
+  createCourse(val: any):Observable<any[]>{
+    return this.httpClient.post<any[]>(this.APIUrl+"/course/", val);
+  }
 
+  getCourseById(id: number):Observable<any[]>{
+    return this.httpClient.get<any[]>(this.APIUrl+"/course/"+id+"/");
+  };
+
+  updateCourse(id: number, course: any):Observable<any[]>{
+    return this.httpClient.put<any[]>(this.APIUrl+"/course/"+id+"/", course);
+  };
+
+  deleteCourse(id: number, ):Observable<any[]>{
+    return this.httpClient.delete<any[]>(this.APIUrl+"/course/"+id+"/");
+  };
+
+  getNotesListByCourseId(course_id: number):Observable<any[]>{
+    return this.httpClient.get<any[]>(this.APIUrl+"/course/"+course_id+"/");
+  };
+
+  createNote(course_id: number, note: any):Observable<any[]>{
+    return this.httpClient.post<any[]>(this.APIUrl+"/course/"+course_id+"/", note);
+  };
 
 }

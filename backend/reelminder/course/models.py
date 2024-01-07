@@ -25,6 +25,14 @@ class Course(models.Model):
     labels = models.ManyToManyField(Label, blank=True)
     is_public = models.BooleanField()
     author = models.CharField(max_length=50)
-    progress_sec = models.IntegerField()
+    progress_sec = models.PositiveIntegerField()
 
+class Note(models.Model):
+    """
+    Model representation of a single note.
+
+    """
+    course = models.ForeignKey(Course, on_delete = models.CASCADE)
+    content = models.CharField(max_length=1000)
+    time_s = models.PositiveIntegerField()
 
