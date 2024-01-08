@@ -1,25 +1,36 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedService } from '../shared.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrl: './course.component.css'
 })
-export class CourseComponent implements OnInit, AfterViewInit {
+export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   public video: any;
   public player: any;
+  public course: any;
 
-  constructor(private shared: SharedService) {}
+  constructor(private shared: SharedService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.video = 'dTLAWHWvtew';
+    console.log("INIT")
+    let course_id = this.route.snapshot.params['id'];
+    this.shared.getCourseById(course_id).subscribe(response => {
+      this.course=response;
+      this.video = this.course.movie_id;
+    })
     this.startPlayer();
   }
 
   ngAfterViewInit(): void {
     // @ts-ignore
     new FroalaEditor("#editor")
+  }
+
+  ngOnDestroy(): void {
+    this.player.destroy()
   }
 
   startPlayer() {

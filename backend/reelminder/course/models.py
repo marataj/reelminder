@@ -10,6 +10,7 @@ class Label(models.Model):
     """
     title = models.CharField(max_length=20)
     color = models.CharField(max_length=20)
+    
 
 
 class Course(models.Model):
@@ -21,6 +22,7 @@ class Course(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     movie_id = models.CharField(max_length=50)
+    # TODO: make creation_date a self generated field
     creation_date = models.DateTimeField()
     labels = models.ManyToManyField(Label, blank=True)
     is_public = models.BooleanField()

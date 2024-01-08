@@ -33,11 +33,11 @@ export class SharedService {
   };
 
   getNotesListByCourseId(course_id: number):Observable<any[]>{
-    return this.httpClient.get<any[]>(this.APIUrl+"/course/"+course_id+"/");
+    return this.httpClient.get<any[]>(this.APIUrl+"/note/"+course_id+"/");
   };
 
   createNote(course_id: number, note: any):Observable<any[]>{
-    return this.httpClient.post<any[]>(this.APIUrl+"/course/"+course_id+"/", note);
+    return this.httpClient.post<any[]>(this.APIUrl+"/note/"+course_id+"/", note);
   };
 
 }

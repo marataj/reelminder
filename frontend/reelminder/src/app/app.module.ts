@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { CourseComponent } from './course/course.component';
 import { SharedService } from './shared.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CourseListComponent } from './course-list/course-list.component';
+import { CourseThumbnailComponent } from './course-thumbnail/course-thumbnail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CourseComponent
+    CourseComponent,
+    CourseListComponent,
+    CourseThumbnailComponent
   ],
   imports: [
     BrowserModule,
