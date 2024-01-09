@@ -4,7 +4,9 @@
       <h5 class="card-title">{{course.title}}</h5>
       <p class="card-text">{{course.description}}</p>
       <p class="card-text">Author: {{course.author}}</p>
-      <a [routerLink]="['/course',course.id]" class="btn btn-primary">Open</a>
+      <!-- Use of href instead of routerLink caused by issues with youtube player instance. In case of routerLink using, the page isn't refreshing which is desired scenario for angular apps, but causes some problems with YT iframe API  -->
+      <a href="course/{{course.id}}" class="btn btn-primary">Open</a>
+      
     </div>
   </div>
   
