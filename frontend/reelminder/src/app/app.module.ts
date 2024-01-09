@@ -8,13 +8,17 @@ import { SharedService } from './shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseListComponent } from './course-list/course-list.component';
 import { CourseThumbnailComponent } from './course-thumbnail/course-thumbnail.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CourseComponent,
     CourseListComponent,
-    CourseThumbnailComponent
+    CourseThumbnailComponent,
+    NavbarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
