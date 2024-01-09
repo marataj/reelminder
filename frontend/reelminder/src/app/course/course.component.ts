@@ -11,22 +11,25 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   public video: any;
   public player: any;
   public course: any;
-
+  public editor: any;
+  public notes: any;
   constructor(private shared: SharedService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     console.log("INIT")
     let course_id = this.route.snapshot.params['id'];
+    
     this.shared.getCourseById(course_id).subscribe(response => {
       this.course=response;
       this.video = this.course.movie_id;
+      this.getNotes();
     })
     this.startPlayer();
   }
 
   ngAfterViewInit(): void {
     // @ts-ignore
-    new FroalaEditor("#editor")
+    this.editor=new FroalaEditor("#editor")
   }
 
   ngOnDestroy(): void {
@@ -79,6 +82,26 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
       
   cleanTime() {
     return Math.round(this.player.getCurrentTime())
+  }
+
+  addNote(){
+    let noteContent = this.editor.html.get()
+    let video_time_s = Math.round(this.player.getCurrentTime())
+    let note={
+      "course": this.course.id,
+      "content": noteContent,
+      "time_s": video_time_s
+  };
+    this.shared.createNote(this.course.id, note).subscribe((res)=>{
+      console.log(res);
+      this.getNotes();
+    })
+  }
+
+  getNotes(){
+    this.shared.getNotesListByCourseId(this.course.id).subscribe((res)=>{
+      this.notes=res;
+    })
   }
 
 }

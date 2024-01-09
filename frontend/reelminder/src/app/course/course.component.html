@@ -10,9 +10,13 @@
           <div id="editor">
            Text editor placeholder
           </div>
+          <button class="form-control btn-primary" (click)="addNote()">Add note</button>
       </div>
       <div class="col-sm">
-      Notes list placeholder
+        notatki
+        <app-note 
+        *ngFor = "let note of notes"
+        [note]="note"></app-note>
       </div>
     </div>
   </div>

@@ -10,6 +10,7 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { CourseThumbnailComponent } from './course-thumbnail/course-thumbnail.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
+import { NoteComponent } from './note/note.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HomeComponent } from './home/home.component';
     CourseListComponent,
     CourseThumbnailComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,
