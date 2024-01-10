@@ -1,4 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { SharedService } from '../shared.service';
+import { share } from 'rxjs';
 
 @Component({
   selector: 'app-note',
@@ -7,11 +9,20 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class NoteComponent {
 
+  constructor(private shared: SharedService) {}
+
   @Input() note: any;
   @Output() videoTimeSet = new EventEmitter<{time_s: number}>();
+  @Output() refreshRequest = new EventEmitter<any>();
 
   emitTimeSetter(time: number){
     this.videoTimeSet.emit({time_s: time})
   }
 
+  deleteNote(){
+    this.shared.deleteNote(this.note.id).subscribe(res => {
+      this.refreshRequest.emit();
+    });
+  }
+  
 }

@@ -40,4 +40,8 @@ export class SharedService {
     return this.httpClient.post<any[]>(this.APIUrl+"/note/"+course_id+"/", note);
   };
 
+  deleteNote(id: number, ):Observable<any[]>{
+    return this.httpClient.delete<any[]>(this.APIUrl+"/note/handle/"+id+"/");
+  };
+
 }
