@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-note',
@@ -8,4 +8,10 @@ import { Component, Input } from '@angular/core';
 export class NoteComponent {
 
   @Input() note: any;
+  @Output() videoTimeSet = new EventEmitter<{time_s: number}>();
+
+  emitTimeSetter(time: number){
+    this.videoTimeSet.emit({time_s: time})
+  }
+
 }

@@ -104,4 +104,8 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
+  setVideoTime(event: {time_s: number}){
+    this.player.seekTo(event.time_s, true);
+  }
+
 }

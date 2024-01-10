@@ -16,7 +16,8 @@
         notatki
         <app-note 
         *ngFor = "let note of notes"
-        [note]="note"></app-note>
+        [note]="note"
+        (videoTimeSet)="setVideoTime($event)"></app-note>
       </div>
     </div>
   </div>
