@@ -11,6 +11,8 @@ import { CourseThumbnailComponent } from './course-thumbnail/course-thumbnail.co
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { NoteComponent } from './note/note.component';
+import { AddEditCourseComponent } from './add-edit-course/add-edit-course.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,12 +22,14 @@ import { NoteComponent } from './note/note.component';
     CourseThumbnailComponent,
     NavbarComponent,
     HomeComponent,
-    NoteComponent
+    NoteComponent,
+    AddEditCourseComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [SharedService],
   bootstrap: [AppComponent]
