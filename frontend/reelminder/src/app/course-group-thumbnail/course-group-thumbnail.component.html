@@ -1,5 +1,7 @@
 <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="https://img.youtube.com/vi/{{course.movie_id}}/sddefault.jpg" alt="Card image cap">
+    <a href="course/{{course.id}}">
+      <img class="card-img-top" src="https://img.youtube.com/vi/{{course.movie_id}}/sddefault.jpg" alt="Card image cap">
+    </a>
     <div class="card-body">
       <h5 class="card-title">{{course.title}}</h5>
       <p class="card-text">{{course.description}}</p>
@@ -7,6 +9,7 @@
       <!-- Use of href instead of routerLink caused by issues with youtube player instance. In case of routerLink using, the page isn't refreshing which is desired scenario for angular apps, but causes some problems with YT iframe API  -->
       <a href="course/{{course.id}}" class="btn btn-primary">Open</a>
       
+    <button class="btn btn-warning" (click)="deleteCourse()">Delete</button>
     </div>
   </div>
   

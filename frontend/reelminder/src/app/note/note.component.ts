@@ -13,7 +13,7 @@ export class NoteComponent {
 
   @Input() note: any;
   @Output() videoTimeSet = new EventEmitter<{time_s: number}>();
-  @Output() refreshRequest = new EventEmitter<any>();
+  @Output() refreshNotes = new EventEmitter<any>();
 
   emitTimeSetter(time: number){
     this.videoTimeSet.emit({time_s: time})
@@ -21,7 +21,7 @@ export class NoteComponent {
 
   deleteNote(){
     this.shared.deleteNote(this.note.id).subscribe(res => {
-      this.refreshRequest.emit();
+      this.refreshNotes.emit();
     });
   }
   

@@ -1,4 +1,5 @@
 <p>course-list works!</p>
-<app-course-thumbnail
+<app-course-group-thumbnail
 *ngFor = "let course of courseList"
-[course]="course"></app-course-thumbnail>
+[course]="course"
+(refreshCourse)="getCourses()"></app-course-group-thumbnail>

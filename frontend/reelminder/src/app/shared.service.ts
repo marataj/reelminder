@@ -16,8 +16,8 @@ export class SharedService {
     return this.httpClient.get<any[]>(this.APIUrl+"/course/");
   };
 
-  createCourse(val: any):Observable<any[]>{
-    return this.httpClient.post<any[]>(this.APIUrl+"/course/", val);
+  createCourse(val: any):Observable<any>{
+    return this.httpClient.post<any>(this.APIUrl+"/course/", val);
   }
 
   getCourseById(id: number):Observable<any[]>{

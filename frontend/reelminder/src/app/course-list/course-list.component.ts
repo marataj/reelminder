@@ -13,6 +13,10 @@ export class CourseListComponent implements OnInit {
   courseList: any[]
 
   ngOnInit(): void {
+    this.getCourses()
+  }
+
+  getCourses() {
     this.http.getCourseList().subscribe((data) => {
       this.courseList = data
       console.log(this.courseList)

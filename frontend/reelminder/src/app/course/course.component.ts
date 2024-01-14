@@ -1,6 +1,7 @@
 import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course',
@@ -13,7 +14,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   public course: any;
   public editor: any;
   public notes: any;
-  constructor(private shared: SharedService, private route: ActivatedRoute) {}
+  constructor(private shared: SharedService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     console.log("INIT")
@@ -106,6 +107,12 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setVideoTime(event: {time_s: number}){
     this.player.seekTo(event.time_s, true);
+  }
+
+  deleteCourse() {
+    this.shared.deleteCourse(this.course.id).subscribe(res => {
+      this.router.navigate([""]);
+    })
   }
 
 }

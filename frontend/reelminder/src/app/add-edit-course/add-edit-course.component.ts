@@ -2,6 +2,7 @@ import { getLocaleDateTimeFormat } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SharedService } from '../shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-edit-course',
@@ -10,7 +11,7 @@ import { SharedService } from '../shared.service';
 })
 export class AddEditCourseComponent {
 
-  constructor(private shared:SharedService) {}
+  constructor(private shared:SharedService, private router:Router) {}
   img_id:string
 
   @ViewChild('f') courseForm: NgForm
@@ -34,7 +35,7 @@ export class AddEditCourseComponent {
     }
 
     this.shared.createCourse(course).subscribe(res=>{
-      console.log(res)
+      this.router.navigate(["course", res.id])
     })
 
   }

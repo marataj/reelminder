@@ -1,5 +1,6 @@
 <h1>{{course.title}}</h1>
 <h2>{{course.description}}</h2>
+<button class="btn btn-warning" (click)="deleteCourse()">Delete</button>
 <div class="container">
   <div></div>
     <div class="row">
@@ -18,7 +19,7 @@
         *ngFor = "let note of notes"
         [note]="note"
         (videoTimeSet)="setVideoTime($event)"
-        (refreshRequest)="getNotes()"></app-note>
+        (refreshNotes)="getNotes()"></app-note>
       </div>
     </div>
   </div>
