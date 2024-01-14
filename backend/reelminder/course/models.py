@@ -11,7 +11,15 @@ class Label(models.Model):
     title = models.CharField(max_length=20)
     color = models.CharField(max_length=20)
     
+class Group(models.Model):
+    """
+    Model representation of a course group.
 
+    """
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=200)
+    is_public = models.BooleanField()
+    author = models.CharField(max_length=50)
 
 class Course(models.Model):
     """
@@ -28,6 +36,7 @@ class Course(models.Model):
     is_public = models.BooleanField()
     author = models.CharField(max_length=50)
     progress_sec = models.PositiveIntegerField()
+    group = models.ForeignKey(Group, on_delete = models.CASCADE, blank=True, null=True)
 
 class Note(models.Model):
     """

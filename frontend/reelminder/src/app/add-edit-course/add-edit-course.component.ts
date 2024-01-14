@@ -31,7 +31,8 @@ export class AddEditCourseComponent {
       "movie_id": course_video_link.split("v=")[1].substring(0, 11),
       "creation_date": creation_date,
       "is_public": true,
-      "progress_sec": 0
+      "progress_sec": 0,
+      "group": null
     }
 
     this.shared.createCourse(course).subscribe(res=>{

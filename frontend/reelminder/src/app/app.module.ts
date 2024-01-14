@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { NoteComponent } from './note/note.component';
 import { AddEditCourseComponent } from './add-edit-course/add-edit-course.component';
 import { FormsModule } from '@angular/forms';
+import { GroupListComponent } from './group-list/group-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     HomeComponent,
     NoteComponent,
-    AddEditCourseComponent
+    AddEditCourseComponent,
+    GroupListComponent
   ],
   imports: [
     BrowserModule,
