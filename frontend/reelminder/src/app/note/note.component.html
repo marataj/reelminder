@@ -3,7 +3,7 @@
         <button type="button" class="btn btn-link" (click)="emitTimeSetter(note.time_s)">Go to the moment: {{note.time_s}} sec</button>
     </div>
     <div class="row">
-        <p>{{note.content}}</p>
+        <div [innerHTML]="note.content"></div>
     </div>
     <div class="row">
         <button class="btn btn-warning"

@@ -44,4 +44,24 @@ export class SharedService {
     return this.httpClient.delete<any[]>(this.APIUrl+"/note/handle/"+id+"/");
   };
 
+  getGroupList():Observable<any[]>{
+    return this.httpClient.get<any[]>(this.APIUrl+"/group/");
+  };
+
+  createGroup(val: any):Observable<any>{
+    return this.httpClient.post<any>(this.APIUrl+"/group/", val);
+  }
+
+  getGroupById(id: number):Observable<any[]>{
+    return this.httpClient.get<any[]>(this.APIUrl+"/group/"+id+"/");
+  };
+
+  updateGroup(id: number, group: any):Observable<any[]>{
+    return this.httpClient.put<any[]>(this.APIUrl+"/group/"+id+"/", group);
+  };
+
+  deleteGroup(id: number, ):Observable<any[]>{
+    return this.httpClient.delete<any[]>(this.APIUrl+"/group/"+id+"/");
+  };
+
 }

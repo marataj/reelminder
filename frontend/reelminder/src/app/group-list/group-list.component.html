@@ -1,1 +1,5 @@
-<p>group-list works!</p>
+<p>gropu-list works!</p>
+<app-group-thumbnail
+*ngFor = "let group of groupList"
+[group]="group"
+(refreshGroups)="getGroups()"></app-group-thumbnail>

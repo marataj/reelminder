@@ -9,6 +9,9 @@ urlpatterns = [
     path('label/', views.Label.as_view()),
     path('note/<int:course_id>/', views.NoteView.as_view()),
     path('note/handle/<int:pk>/', views.NoteHandler.as_view()),
+    path('group/', views.GroupCreate.as_view()),
+    path('group/<int:pk>/', views.GroupDetails.as_view()),
+    
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

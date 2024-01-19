@@ -21,6 +21,7 @@ class Group(models.Model):
     is_public = models.BooleanField()
     author = models.CharField(max_length=50)
 
+# TODO: Add percentage progress
 class Course(models.Model):
     """
     Model representation of a course.

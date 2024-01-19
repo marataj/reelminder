@@ -6,13 +6,13 @@ import { share } from 'rxjs';
 type ThumbnailType = "course" | "group";
 
 @Component({
-  selector: 'app-course-group-thumbnail',
-  templateUrl: './course-group-thumbnail.component.html',
-  styleUrl: './course-group-thumbnail.component.css'
+  selector: 'app-course-thumbnail',
+  templateUrl: './course-thumbnail.component.html',
+  styleUrl: './course-thumbnail.component.css'
 })
-export class CourseGroupThumbnailComponent {
+export class CourseThumbnailComponent {
 
-@Input() type: ThumbnailType
+
 @Input() course: any;
 @Output() refreshCourse = new EventEmitter<any>();
 

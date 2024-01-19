@@ -1,7 +1,7 @@
 from rest_framework import generics, views, status
 from rest_framework.response import Response
-from .serializers import CourseSerializer, LabelSerializer, NoteSerializer
-from.models import Course, Label, Note
+from .serializers import CourseSerializer, LabelSerializer, NoteSerializer, GroupSerializer
+from.models import Course, Label, Note, Group
 # Create your views here.
 
 class CourseCreate(generics.ListCreateAPIView):
@@ -61,8 +61,22 @@ class NoteHandler(generics.DestroyAPIView, generics.UpdateAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
 
+class GroupCreate(generics.ListCreateAPIView):
+    """
+    Endpoint for creating new courses.
 
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
 
+#  TODO: check docstrings
+class GroupDetails(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Endpoint for retrieving, updating and deleting courses.
+
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
         
 
     
