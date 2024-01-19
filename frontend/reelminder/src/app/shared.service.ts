@@ -15,6 +15,9 @@ export class SharedService {
   getCourseList():Observable<any[]>{
     return this.httpClient.get<any[]>(this.APIUrl+"/course/");
   };
+  getCourseListByGroupId(group_id: number):Observable<any[]>{
+    return this.httpClient.get<any[]>(this.APIUrl+"/courses-by-group/"+group_id+"/");
+  };
 
   createCourse(val: any):Observable<any>{
     return this.httpClient.post<any>(this.APIUrl+"/course/", val);
@@ -45,7 +48,7 @@ export class SharedService {
   };
 
   getGroupList():Observable<any[]>{
-    return this.httpClient.get<any[]>(this.APIUrl+"/group/");
+    return this.httpClient.get<any[]>(this.APIUrl+"/group-list/");
   };
 
   createGroup(val: any):Observable<any>{

@@ -7,7 +7,7 @@
       <p class="card-text">{{group.description}}</p>
       <p class="card-text">Author: {{group.author}}</p>
       <!-- Use of href instead of routerLink caused by issues with youtube player instance. In case of routerLink using, the page isn't refreshing which is desired scenario for angular apps, but causes some problems with YT iframe API  -->
-      <a href="group/{{group.id}}" class="btn btn-primary">Open</a>
+      <a href="courses/{{group.id}}" class="btn btn-primary">Open</a>
       
     <button class="btn btn-warning" (click)="deleteGroup()">Delete</button>
     </div>

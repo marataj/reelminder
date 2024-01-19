@@ -10,6 +10,7 @@ urlpatterns = [
     path('note/<int:course_id>/', views.NoteView.as_view()),
     path('note/handle/<int:pk>/', views.NoteHandler.as_view()),
     path('group/', views.GroupCreate.as_view()),
+    path('group-list/', views.GroupList.as_view()),
     path('group/<int:pk>/', views.GroupDetails.as_view()),
     
 ]

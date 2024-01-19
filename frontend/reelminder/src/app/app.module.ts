@@ -15,6 +15,7 @@ import { AddEditCourseComponent } from './add-edit-course/add-edit-course.compon
 import { FormsModule } from '@angular/forms';
 import { GroupListComponent } from './group-list/group-list.component';
 import { GroupThumbnailComponent } from './group-thumbnail/group-thumbnail.component';
+import { AddEditGroupComponent } from './add-edit-group/add-edit-group.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { GroupThumbnailComponent } from './group-thumbnail/group-thumbnail.compo
     NoteComponent,
     AddEditCourseComponent,
     GroupListComponent,
-    GroupThumbnailComponent
+    GroupThumbnailComponent,
+    AddEditGroupComponent
   ],
   imports: [
     BrowserModule,

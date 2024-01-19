@@ -18,7 +18,9 @@ class CourseByGroup(views.APIView):
     Endpoint for retrieving a list of courses.
 
     """
-    def get(request, group_id, format=None):
+    def get(self, request, group_id, format=None):
+        print(group_id)
+        print("lalalala")
         queryset = Course.objects.filter(group__id=group_id)
         
         serializer = CourseSerializer(queryset, many=True)
@@ -61,7 +63,22 @@ class NoteHandler(generics.DestroyAPIView, generics.UpdateAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
 
-class GroupCreate(generics.ListCreateAPIView):
+class GroupCreate(views.APIView):
+    """
+    Endpoint for creating new courses.
+
+    """
+    def post(self, request, format=None):
+        print(request.data)
+        serializer = GroupSerializer(data=request.data["group"])
+        if serializer.is_valid():
+            obj=serializer.save()
+
+            Course.objects.filter(id__in=request.data["picked_courses"]).update(group=obj.id)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GroupList(generics.ListAPIView):
     """
     Endpoint for creating new courses.
 
