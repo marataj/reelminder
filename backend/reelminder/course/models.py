@@ -37,7 +37,7 @@ class Course(models.Model):
     is_public = models.BooleanField()
     author = models.CharField(max_length=50)
     progress_sec = models.PositiveIntegerField()
-    group = models.ForeignKey(Group, on_delete = models.CASCADE, blank=True, null=True)
+    group = models.ForeignKey(Group, on_delete = models.SET_NULL, blank=True, null=True)
 
 class Note(models.Model):
     """
