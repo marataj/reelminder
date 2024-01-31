@@ -10,13 +10,13 @@ export class GroupThumbnailComponent {
   
 
 @Input() group: any;
-@Output() refreshGroup = new EventEmitter<any>();
+@Output() refreshGroups = new EventEmitter<any>();
 
 constructor(private shared: SharedService) {}
 
 deleteGroup(){
   this.shared.deleteGroup(this.group.id).subscribe(res => {
-    this.refreshGroup.emit();
+    this.refreshGroups.emit();
   })
 }
 }

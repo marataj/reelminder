@@ -14,12 +14,16 @@ export class AddEditGroupComponent implements OnInit {
 
   constructor(private shared: SharedService, private router: Router){}
 
-  courseList : any[];
+  courseList : any[] = [];
   pickedCourses: number[] = [];
 
   ngOnInit(): void {
     this.shared.getCourseList().subscribe(res=>{
-      this.courseList = res;
+      res.forEach(elem => {
+        if(elem.group == null){
+          this.courseList.push(elem);
+        }
+      })
     })
   }
   

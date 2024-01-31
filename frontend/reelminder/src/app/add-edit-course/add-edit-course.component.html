@@ -1,15 +1,21 @@
-<p>add course works</p>
+<h2 *ngIf="edited_course; else newCourse">Edit course: {{edited_course.title}}</h2>
+<ng-template #newCourse><h2>New course</h2></ng-template>
 <form (ngSubmit)="courseFormSubmit()" #f="ngForm">
     <label >Course title</label>
-    <input type="text" class="form-control" ngModel name="course_title">
+    <input type="text" class="form-control" [ngModel]="edited_course?edited_course.title:'Course title'" name="course_title">
     <label >Course description</label>
-    <input type="text" class="form-control" ngModel name="course_description">
+    <input type="text" class="form-control" [ngModel]="edited_course?edited_course.description:'Description'" name="course_description">
     <label >Author</label>
-    <input type="text" class="form-control" ngModel name="course_author">
+    <input type="text" class="form-control" [ngModel]="edited_course?edited_course.author:'Author'" name="course_author">
     <label >Video link</label>
-    <input type="url" class="form-control" ngModel name="course_video_link" (change)="videoLinkChanged()">
+    <input type="url" class="form-control" [ngModel]="edited_course?generate_yt_link(edited_course.movie_id):'Youtube link'" name="course_video_link" (change)="videoLinkChanged()">
+    <label >Group</label>
+    <select class="form-select" ngModelname="assigned_group"  >
+      <option [selected] hidden="edited_course.group==undefined">Assign to the group</option>
+      <option *ngFor="let group of groups" value="{{group.id}}" [selected]="group.id==edited_course.group">{{group.title}}</option>
+      </select>
     <hr>
     <img src="https://img.youtube.com/vi/{{img_id}}/sddefault.jpg" style="width: 200px; height: auto;">
     <hr>
-    <button type="submit" class="btn-primary">Submit</button>
+    <button type="submit" class="btn-primary">{{edited_course?"Edit course":"Add course"}}</button>
 </form>

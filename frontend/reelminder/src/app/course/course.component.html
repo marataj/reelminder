@@ -1,7 +1,9 @@
 <h1>{{course.title}}</h1>
 <h2>{{course.description}}</h2>
-<h3>Group: {{course.group}}</h3>
+<a *ngIf="course.group" routerLink="/courses/{{course.group}}">Group: {{course.group}}</a>
+<hr>
 <button class="btn btn-warning" (click)="deleteCourse()">Delete</button>
+<button class="btn btn-warning" routerLink="edit">Edit</button>
 <div class="container">
   <div></div>
     <div class="row">

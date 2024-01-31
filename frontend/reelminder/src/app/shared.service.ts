@@ -27,7 +27,7 @@ export class SharedService {
     return this.httpClient.get<any[]>(this.APIUrl+"/course/"+id+"/");
   };
 
-  updateCourse(id: number, course: any):Observable<any[]>{
+  updateCourse(id: number, course: any):Observable<any>{
     return this.httpClient.put<any[]>(this.APIUrl+"/course/"+id+"/", course);
   };
 

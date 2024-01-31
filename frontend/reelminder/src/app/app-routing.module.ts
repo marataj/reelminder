@@ -14,6 +14,7 @@ const routes: Routes = [
   {path:'groups', component:GroupListComponent},
   {path:'course/add', component:AddEditCourseComponent},
   {path:'course/:id', component:CourseComponent},
+  {path:'course/:id/edit', component:AddEditCourseComponent},
   {path:'group/add', component: AddEditGroupComponent}
 ];
 
