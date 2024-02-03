@@ -3,7 +3,7 @@ import { Input } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { share } from 'rxjs';
 
-type ThumbnailType = "course" | "group";
+
 
 @Component({
   selector: 'app-course-thumbnail',
