@@ -60,7 +60,7 @@ export class SharedService {
   };
 
   updateGroup(id: number, group: any):Observable<any[]>{
-    return this.httpClient.put<any[]>(this.APIUrl+"/group/"+id+"/", group);
+    return this.httpClient.patch<any>(this.APIUrl+"/group/"+id+"/update/", group);
   };
 
   deleteGroup(id: number, ):Observable<any[]>{

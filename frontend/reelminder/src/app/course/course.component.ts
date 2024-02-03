@@ -17,7 +17,6 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private shared: SharedService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    console.log("INIT")
     let course_id = this.route.snapshot.params['id'];
     
     this.shared.getCourseById(course_id).subscribe(response => {
@@ -48,7 +47,6 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
 
     window['onYouTubeIframeAPIReady'] = () => this.initPlayer();
     this.shared.getCourseList().subscribe(response => {
-      console.log(response);
     })
   }
 
@@ -94,7 +92,6 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
       "time_s": video_time_s
   };
     this.shared.createNote(this.course.id, note).subscribe((res)=>{
-      console.log(res);
       this.getNotes();
     })
   }

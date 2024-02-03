@@ -29,7 +29,6 @@ export class CourseListComponent implements OnInit {
       })
     }else{      
       let group_id = this.groupId;
-      console.log(group_id);
       this.http.getCourseListByGroupId(group_id).subscribe((data) => {
         this.courseList = data
       })

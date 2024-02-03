@@ -19,8 +19,6 @@ class CourseByGroup(views.APIView):
 
     """
     def get(self, request, group_id, format=None):
-        print(group_id)
-        print("lalalala")
         queryset = Course.objects.filter(group__id=group_id)
         
         serializer = CourseSerializer(queryset, many=True)
@@ -69,13 +67,27 @@ class GroupCreate(views.APIView):
 
     """
     def post(self, request, format=None):
-        print(request.data)
         serializer = GroupSerializer(data=request.data["group"])
         if serializer.is_valid():
             obj=serializer.save()
 
             Course.objects.filter(id__in=request.data["picked_courses"]).update(group=obj.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GroupUpdate(views.APIView):
+    """
+    Endpoint for updating existing groups.
+
+    """
+    def patch(self, request, pk,  format=None):
+        instance = Group.objects.filter(pk=pk).first()
+        serializer = GroupSerializer(instance, data=request.data["group"])
+        if serializer.is_valid():
+            serializer.save()
+            Course.objects.filter(group=pk).update(group=None)
+            Course.objects.filter(id__in=request.data["picked_courses"]).update(group=pk)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class GroupList(generics.ListAPIView):
@@ -87,7 +99,7 @@ class GroupList(generics.ListAPIView):
     serializer_class = GroupSerializer
 
 #  TODO: check docstrings
-class GroupDetails(generics.RetrieveUpdateDestroyAPIView):
+class GroupDetails(generics.RetrieveDestroyAPIView):
     """
     Endpoint for retrieving, updating and deleting courses.
 

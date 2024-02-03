@@ -20,9 +20,7 @@ export class AddEditCourseComponent implements OnInit{
   @ViewChild('f') courseForm: NgForm
   // TODO: change form binding type. Now default values, during course editing are related to the this.edited_course object. If the page is showed in the `new course` context, the this.edited_course is undefined 
   ngOnInit(): void {
-    console.log("on init")
     this.shared.getGroupList().subscribe(res => {
-      console.log(res)
       this.groups=res;
     })
     let edited_course_id = this.route.snapshot.params['id'];
@@ -42,8 +40,6 @@ export class AddEditCourseComponent implements OnInit{
     let course_video_link = this.courseForm.form.value.course_video_link;
     let group = this.courseForm.form.value.assigned_group;
     let creation_date = new Date();
-
-    console.log(this.courseForm.form.value.assigned_group)
 
     let course ={
       "title": course_title,

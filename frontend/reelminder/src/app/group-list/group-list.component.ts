@@ -18,7 +18,6 @@ export class GroupListComponent {
   getGroups() {
     this.http.getGroupList().subscribe((data) => {
       this.groupList = data
-      console.log(this.groupList)
     })
   }
 

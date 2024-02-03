@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-edit-group',
@@ -9,19 +9,29 @@ import { Router } from '@angular/router';
   styleUrl: './add-edit-group.component.css'
 })
 export class AddEditGroupComponent implements OnInit {
-  
-  @ViewChild('f') groupForm: NgForm;
-
-  constructor(private shared: SharedService, private router: Router){}
-
   courseList : any[] = [];
   pickedCourses: number[] = [];
+  edited_group: any
+
+  @ViewChild('f') groupForm: NgForm;
+  
+  constructor(private shared: SharedService, private router: Router, private route:ActivatedRoute){}
 
   ngOnInit(): void {
+    let groupId=this.route.snapshot.params["id"]
+    if(groupId){
+      this.shared.getGroupById(groupId).subscribe(res=>{this.edited_group=res})
+    }
+
     this.shared.getCourseList().subscribe(res=>{
       res.forEach(elem => {
         if(elem.group == null){
           this.courseList.push(elem);
+        }
+        if(this.edited_group && elem.group==this.edited_group.id)
+        {
+          this.courseList.push(elem);
+          this.pickedCourses.push(elem.id);
         }
       })
     })
@@ -32,7 +42,7 @@ export class AddEditGroupComponent implements OnInit {
       this.pickedCourses.push(course.id);
     }
     else{
-      this.pickedCourses.splice(this.pickedCourses.indexOf(course.id))
+      this.pickedCourses.splice(this.pickedCourses.indexOf(course.id), 1)
     }
   }
 
@@ -45,8 +55,16 @@ export class AddEditGroupComponent implements OnInit {
     },
     "picked_courses": this.pickedCourses}
 
-    this.shared.createGroup(formData).subscribe(res=>{
-      this.router.navigate(["groups"]);
-    })
+    if(this.edited_group){
+      this.shared.updateGroup(this.edited_group.id, formData).subscribe(res=>{
+        this.router.navigate(["groups"]);
+      })
+    }
+    else{
+      this.shared.createGroup(formData).subscribe(res=>{
+        this.router.navigate(["groups"]);
+      })
+    }
+    
   }
 }

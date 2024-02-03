@@ -1,11 +1,11 @@
 <p>add-edit-group works!</p>
 <form (ngSubmit)="groupFormSubmit()" #f="ngForm">
     <label >Group title</label>
-    <input type="text" class="form-control" ngModel name="group_title">
+    <input type="text" class="form-control" [ngModel]="edited_group?edited_group.title:''" name="group_title">
     <label >Group description</label>
-    <input type="text" class="form-control" ngModel name="group_description">
+    <input type="text" class="form-control" [ngModel]="edited_group?edited_group.description:''" name="group_description">
     <label >Author</label>
-    <input type="text" class="form-control" ngModel name="group_author">
+    <input type="text" class="form-control" [ngModel]="edited_group?edited_group.author:''" name="group_author">
     <hr>
     <h2>Assign courses</h2>
     <table class="table">
@@ -25,7 +25,7 @@
             <td>{{course.description}}</td>
             <td>{{course.author}}</td>
             <td><input type="checkbox"
-                (change)="pickCourse($event, course)"></td>
+                (change)="pickCourse($event, course)" [checked]="pickedCourses.includes(course.id)"></td>
           </tr>
         </tbody>
       </table>

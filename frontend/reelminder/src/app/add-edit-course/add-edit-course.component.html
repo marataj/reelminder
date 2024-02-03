@@ -12,7 +12,8 @@
     <label >Group</label>
     <select class="form-select" ngModel name="assigned_group"  >
       <option [selected] hidden="edited_course.group==undefined">Assign to the group</option>
-      <option *ngFor="let group of groups" value="{{group.id}}" [selected]="group.id==edited_course.group">{{group.title}}</option>
+      <option value="{{null}}">Standalone</option>
+      <option *ngFor="let group of groups" value="{{group.id}}" [selected]="edited_course && group.id==edited_course.group">{{group.title}}</option>
       </select>
     <hr>
     <img src="https://img.youtube.com/vi/{{img_id}}/sddefault.jpg" style="width: 200px; height: auto;">
