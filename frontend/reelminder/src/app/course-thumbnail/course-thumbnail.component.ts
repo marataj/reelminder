@@ -15,7 +15,7 @@ export class CourseThumbnailComponent {
 
 @Input() course: any;
 @Output() refreshCourse = new EventEmitter<any>();
-
+@Input() groupsNames: any;
 constructor(private shared: SharedService) {}
 
 deleteCourse(){

@@ -1,5 +1,18 @@
-<p>course-list works!</p>
-<app-course-thumbnail
-*ngFor = "let course of courseList"
-[course]="course"
-(refreshCourse)="getCourses()"></app-course-thumbnail>
+<div class="container py-3">
+    <h2 *ngIf="!group; else specGroup">All courses</h2>
+    <ng-template #specGroup>
+        <h2>Group: {{group.title}} </h2>
+        <p>{{group.description}}</p>
+        <p>Author: {{group.author}}</p>
+    </ng-template>
+<div class="row row-cols-1 row-cols-md-4 py-2">
+<div class="col py-3"
+*ngFor = "let course of courseList">
+    <app-course-thumbnail
+    [course]="course"
+    [groupsNames]="groups"
+    (refreshCourse)="getCourses()"
+    ></app-course-thumbnail>
+</div>
+</div>
+</div>

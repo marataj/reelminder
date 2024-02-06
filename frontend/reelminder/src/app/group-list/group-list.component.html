@@ -1,5 +1,11 @@
-<p>gropu-list works!</p>
-<app-group-thumbnail
-*ngFor = "let group of groupList"
-[group]="group"
-(refreshGroups)="getGroups()"></app-group-thumbnail>
+<div class="container py-3">
+    <h2>Groups</h2>
+    <div class="row row-cols-1 row-cols-md-4 py-2">
+        <div class="col py-3"
+        *ngFor = "let group of groupList">
+            <app-group-thumbnail
+            [group]="group"
+            (refreshGroups)="getGroups()"></app-group-thumbnail>
+        </div>
+    </div>
+</div>

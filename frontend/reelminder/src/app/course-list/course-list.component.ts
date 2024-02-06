@@ -12,13 +12,26 @@ export class CourseListComponent implements OnInit {
   constructor(private http: SharedService, private route: ActivatedRoute) {}
 
   groupId: number = null;
-
+  group:any;
   courseList: any[]
+  groups:any={};
 
   ngOnInit(): void {
     if(this.route.snapshot.params["groupId"]){
       this.groupId = this.route.snapshot.params["groupId"]
+      this.http.getGroupById(this.groupId).subscribe(res => {
+        this.group = res;
+        this.groups[this.group.id]=this.group
+      })
     }
+    else{
+      this.http.getGroupList().subscribe(res=>{
+        res.forEach(elem=>{
+          this.groups[elem.id]=elem
+        })
+      })
+    }
+    
     this.getCourses()
   }
 
