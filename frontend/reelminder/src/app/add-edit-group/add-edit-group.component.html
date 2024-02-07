@@ -1,34 +1,75 @@
-<p>add-edit-group works!</p>
-<form (ngSubmit)="groupFormSubmit()" #f="ngForm">
-    <label >Group title</label>
-    <input type="text" class="form-control" [ngModel]="edited_group?edited_group.title:''" name="group_title">
-    <label >Group description</label>
-    <input type="text" class="form-control" [ngModel]="edited_group?edited_group.description:''" name="group_description">
-    <label >Author</label>
-    <input type="text" class="form-control" [ngModel]="edited_group?edited_group.author:''" name="group_author">
-    <hr>
-    <h2>Assign courses</h2>
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Author</th>
-            <th scope="col">Select</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let course of courseList">
-            <th scope="row"><img src="https://img.youtube.com/vi/{{course.movie_id}}/sddefault.jpg" style="width: 200px;"></th>
-            <td>{{course.title}}</td>
-            <td>{{course.description}}</td>
-            <td>{{course.author}}</td>
-            <td><input type="checkbox"
-                (change)="pickCourse($event, course)" [checked]="pickedCourses.includes(course.id)"></td>
-          </tr>
-        </tbody>
-      </table>
-    <hr>
-    <button type="submit" class="btn-primary">Submit</button>
-</form>
+<div class="container">
+  <h2 *ngIf="edited_group; else newGroup">EDIT: {{ edited_group.title }}</h2>
+  <ng-template #newGroup><h2>New group</h2></ng-template>
+  <form
+    (ngSubmit)="groupFormSubmit()"
+    #f="ngForm"
+    class="p-3 border border-secondary rounded"
+  >
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <label for="group_title" class="form-label">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          [ngModel]="edited_group ? edited_group.title : ''"
+          name="group_title"
+        />
+        <label for="group_description" class="form-label">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          [ngModel]="edited_group ? edited_group.description : ''"
+          name="group_description"
+        />
+        <label for="group_author" class="form-label">Author</label>
+        <input
+          type="text"
+          class="form-control"
+          [ngModel]="edited_group ? edited_group.author : ''"
+          name="group_author"
+        />
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+      </div>
+
+      <div class="col-md-9 pl-4">
+        <table class="table-sm">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center"></th>
+              <th scope="col" class="text-center">Name</th>
+              <th scope="col" class="text-center">Description</th>
+              <th scope="col" class="text-center">Author</th>
+              <th scope="col" class="text-center">Select</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of courseList">
+              <th scope="row">
+                <a href="course/{{ course.id }}">
+                  <img
+                    src="https://img.youtube.com/vi/{{
+                      course.movie_id
+                    }}/sddefault.jpg"
+                    style="width: 100px"
+                /></a>
+              </th>
+              <td class="text-center">{{ course.title }}</td>
+              <td class="text-center">{{ course.description }}</td>
+              <td class="text-center">{{ course.author }}</td>
+              <td>
+                <div class="d-flex align-items-center justify-content-center">
+                  <input
+                    type="checkbox"
+                    (change)="pickCourse($event, course)"
+                    [checked]="pickedCourses.includes(course.id)"
+                  />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </form>
+</div>
