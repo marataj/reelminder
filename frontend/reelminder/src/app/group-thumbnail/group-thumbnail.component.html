@@ -1,18 +1,20 @@
-<div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+<div class="card text-dark bg-light p-1" style="max-width: 18rem">
+  <div class="card-body">
+    <h3 class="card-title">{{ group.title }}</h3>
+    <p class="card-text">{{ group.description }}</p>
+    <h5 class="card-text"><i class="bi bi-diagram-3"></i> {{ video_num }}</h5>
 
-    <div class="card-body">
-      <h5 class="card-title">{{group.title}}</h5>
-      <p class="card-text">{{group.description}}</p>
-      <p class="card-text">Author: {{group.author}}</p>
-      <p class="card-text">{{video_num}} courses</p>
-     
-      <div class="d-flex justify-content-around">
-        <a href="courses/{{group.id}}" class="btn btn-primary">Open</a>
-      
-        <button class="btn btn-warning" (click)="deleteGroup()">Delete</button>
-        <button class="btn btn-warning" routerLink="/group/{{group.id}}/edit">Edit</button>
-      </div>
-      
+    <div class="d-flex justify-content-around">
+      <a href="courses/{{ group.id }}" class="btn btn-light"
+        ><h2><i class="bi bi-collection-play"></i></h2
+      ></a>
+
+      <a class="btn btn-light" (click)="deleteGroup()"
+        ><h2><i class="bi bi-trash"></i></h2
+      ></a>
+      <a class="btn btn-light" routerLink="/group/{{ group.id }}/edit">
+        <h2><i class="bi bi-pencil-square"></i></h2>
+      </a>
     </div>
   </div>
-  
+</div>

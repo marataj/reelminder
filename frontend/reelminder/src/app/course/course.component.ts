@@ -1,4 +1,10 @@
-import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { SharedService } from '../shared.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -6,7 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
-  styleUrl: './course.component.css'
+  styleUrl: './course.component.css',
 })
 export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   public video: any;
@@ -14,26 +20,35 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   public course: any;
   public editor: any;
   public notes: any;
-  constructor(private shared: SharedService, private route: ActivatedRoute, private router: Router) {}
+  public group: any = null;
+  constructor(
+    private shared: SharedService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     let course_id = this.route.snapshot.params['id'];
-    
-    this.shared.getCourseById(course_id).subscribe(response => {
-      this.course=response;
+
+    this.shared.getCourseById(course_id).subscribe((response) => {
+      this.course = response;
       this.video = this.course.movie_id;
       this.getNotes();
-    })
+      if (this.course.group)
+        this.shared.getGroupById(this.course.group).subscribe((res) => {
+          this.group = res;
+        });
+    });
     this.startPlayer();
   }
 
   ngAfterViewInit(): void {
     // @ts-ignore
-    this.editor=new FroalaEditor("#editor")
+    this.editor = new FroalaEditor('#editor');
   }
 
   ngOnDestroy(): void {
-    this.player.destroy()
+    this.player.destroy();
   }
 
   startPlayer() {
@@ -46,8 +61,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
     window['onYouTubeIframeAPIReady'] = () => this.initPlayer();
-    this.shared.getCourseList().subscribe(response => {
-    })
+    this.shared.getCourseList().subscribe((response) => {});
   }
 
   initPlayer() {
@@ -64,52 +78,49 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
         rel: 0,
         showinfo: 0,
         fs: 0,
-        playsinline: 1
+        playsinline: 1,
       },
       events: {
-        'onStateChange': this.onPlayerStateChange.bind(this),
-        'onReady': this.onPlayerReady.bind(this),
-      }
+        onStateChange: this.onPlayerStateChange.bind(this),
+        onReady: this.onPlayerReady.bind(this),
+      },
     });
   }
 
-  onPlayerReady(event) {
-  }
+  onPlayerReady(event) {}
 
-  onPlayerStateChange(event) {
-  }
-      
+  onPlayerStateChange(event) {}
+
   cleanTime() {
-    return Math.round(this.player.getCurrentTime())
+    return Math.round(this.player.getCurrentTime());
   }
 
-  addNote(){
-    let noteContent = this.editor.html.get()
-    let video_time_s = Math.round(this.player.getCurrentTime())
-    let note={
-      "course": this.course.id,
-      "content": noteContent,
-      "time_s": video_time_s
-  };
-    this.shared.createNote(this.course.id, note).subscribe((res)=>{
+  addNote() {
+    let noteContent = this.editor.html.get();
+    let video_time_s = Math.round(this.player.getCurrentTime());
+    let note = {
+      course: this.course.id,
+      content: noteContent,
+      time_s: video_time_s,
+    };
+    this.shared.createNote(this.course.id, note).subscribe((res) => {
       this.getNotes();
-    })
+    });
   }
 
-  getNotes(){
-    this.shared.getNotesListByCourseId(this.course.id).subscribe((res)=>{
-      this.notes=res;
-    })
+  getNotes() {
+    this.shared.getNotesListByCourseId(this.course.id).subscribe((res) => {
+      this.notes = res;
+    });
   }
 
-  setVideoTime(event: {time_s: number}){
+  setVideoTime(event: { time_s: number }) {
     this.player.seekTo(event.time_s, true);
   }
 
   deleteCourse() {
-    this.shared.deleteCourse(this.course.id).subscribe(res => {
-      this.router.navigate([""]);
-    })
+    this.shared.deleteCourse(this.course.id).subscribe((res) => {
+      this.router.navigate(['']);
+    });
   }
-
 }
