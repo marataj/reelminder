@@ -1,18 +1,42 @@
 <div class="container py-3">
-    <h2 *ngIf="!group; else specGroup">All courses</h2>
-    <ng-template #specGroup>
-        <h2>Group: {{group.title}} </h2>
-        <p>{{group.description}}</p>
-        <p>Author: {{group.author}}</p>
-    </ng-template>
-<div class="row row-cols-1 row-cols-md-4 py-2">
-<div class="col py-3"
-*ngFor = "let course of courseList">
-    <app-course-thumbnail
-    [course]="course"
-    [groupsNames]="groups"
-    (refreshCourse)="getCourses()"
-    ></app-course-thumbnail>
-</div>
-</div>
+  <div class="row" *ngIf="!group; else specGroup">
+    <div class="col-md-6">
+      <h2>All courses</h2>
+    </div>
+    <div class="col-md-6 d-flex justify-content-end">
+      <button class="btn btn-light border radius" routerLink="/course/add/">
+        <h2><i class="bi bi-plus-circle"></i></h2>
+      </button>
+    </div>
+  </div>
+  <ng-template #specGroup>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Group: {{ group.title }}</h2>
+      </div>
+      <div class="col-md-6 d-flex justify-content-end">
+        <button
+          class="btn btn-light border radius"
+          routerLink="/course/add/{{ group.id }}"
+        >
+          <h2><i class="bi bi-plus-circle"></i></h2>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <div class="row" *ngIf="group">
+    <div class="col">
+      <p>{{ group.description }}</p>
+      <p>Author: {{ group.author }}</p>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-4 py-2">
+    <div class="col py-3" *ngFor="let course of courseList">
+      <app-course-thumbnail
+        [course]="course"
+        [groupsNames]="groups"
+        (refreshCourse)="getCourses()"
+      ></app-course-thumbnail>
+    </div>
+  </div>
 </div>
