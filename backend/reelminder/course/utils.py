@@ -21,6 +21,15 @@ def retrieve_yt_meta(video_id: str) -> dict:
     dict
         Dictionary contains retrieved metadata
 
+    Raises
+    ------
+    AttributeError
+        When passed wrong ID.
+    ConnectionError
+        When there was issue during connection.
+    TypeError
+        When the viedo have no metadata.
+        
     """
     if len(video_id) < 11:
         raise AttributeError("Wrong video ID")

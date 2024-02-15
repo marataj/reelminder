@@ -12,7 +12,8 @@ urlpatterns = [
     path('group/', views.GroupCreate.as_view()),
     path('group-list/', views.GroupList.as_view()),
     path('group/<int:pk>/', views.GroupDetails.as_view()),
-    path('group/<int:pk>/update/', views.GroupUpdate.as_view())
+    path('group/<int:pk>/update/', views.GroupUpdate.as_view()),
+    path('yt-vid-metadata/', views.get_yt_video_meta)
     
 ]
 

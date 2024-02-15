@@ -1,7 +1,10 @@
 from rest_framework import generics, views, status
 from rest_framework.response import Response
 from .serializers import CourseSerializer, LabelSerializer, NoteSerializer, GroupSerializer
+from .utils import retrieve_yt_meta
 from.models import Course, Label, Note, Group
+from rest_framework.decorators import api_view
+import json
 # Create your views here.
 
 class CourseCreate(generics.ListCreateAPIView):
@@ -107,5 +110,16 @@ class GroupDetails(generics.RetrieveDestroyAPIView):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
         
+@api_view(['GET'])
+def get_yt_video_meta(request):
+    """
+    Returns youtube video metadata.
 
-    
+    """
+    if request.method == 'GET':
+        vid=request.data['video_id']
+        try:
+            meta = retrieve_yt_meta(vid)
+        except (AttributeError, ConnectionError, TypeError):
+             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(json.dumps(meta), status=status.HTTP_200_OK)
