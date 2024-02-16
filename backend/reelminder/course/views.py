@@ -111,15 +111,14 @@ class GroupDetails(generics.RetrieveDestroyAPIView):
     serializer_class = GroupSerializer
         
 @api_view(['GET'])
-def get_yt_video_meta(request):
+def get_yt_video_meta(request, id):
     """
     Returns youtube video metadata.
 
     """
     if request.method == 'GET':
-        vid=request.data['video_id']
         try:
-            meta = retrieve_yt_meta(vid)
+            meta = retrieve_yt_meta(id)
         except (AttributeError, ConnectionError, TypeError):
              return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(json.dumps(meta), status=status.HTTP_200_OK)

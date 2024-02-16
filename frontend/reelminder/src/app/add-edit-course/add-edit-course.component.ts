@@ -20,6 +20,7 @@ export class AddEditCourseComponent implements OnInit {
   groups: any[] = [];
   edited_course: any;
   defaultGroup: any;
+  meta: any;
 
   @ViewChild('f') courseForm: NgForm;
   // TODO: change form binding type. Now default values, during course editing are related to the this.edited_course object. If the page is showed in the `new course` context, the this.edited_course is undefined
@@ -79,12 +80,27 @@ export class AddEditCourseComponent implements OnInit {
   }
 
   videoLinkChanged() {
-    this.img_id = this.courseForm.form.value.course_video_link
-      .split('v=')[1]
-      .substring(0, 11);
+    this.img_id = this.retrieveVideoId(
+      this.courseForm.form.value.course_video_link
+    );
   }
 
   generate_yt_link(movie_id: string) {
     return `https://www.youtube.com/watch?v=${movie_id}`;
+  }
+
+  getVideoMeta() {
+    let id = this.retrieveVideoId(this.courseForm.form.value.course_video_link);
+    this.shared.getYtVideoMeta(id).subscribe((res) => {
+      let meta = JSON.parse(res);
+      this.courseForm.form.controls.course_title.setValue(meta.title);
+      this.courseForm.form.controls.course_description.setValue(
+        meta.description
+      );
+    });
+  }
+
+  retrieveVideoId(link: string) {
+    return link.split('v=')[1].substring(0, 11);
   }
 }

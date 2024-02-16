@@ -11,16 +11,25 @@
     <div class="row mb-3">
       <div class="col-md-12">
         <label for="course_video_link" class="form-label">Video link</label>
-        <input
-          type="url"
-          class="form-control"
-          [ngModel]="
-            edited_course ? generate_yt_link(edited_course.movie_id) : ''
-          "
-          name="course_video_link"
-          (change)="videoLinkChanged()"
-          placeholder="https://www.youtube.com/watch?v=MbXWrmQW-OE"
-        />
+        <div class="d-flex align-items-center">
+          <input
+            type="url"
+            class="form-control"
+            [ngModel]="
+              edited_course ? generate_yt_link(edited_course.movie_id) : ''
+            "
+            name="course_video_link"
+            (change)="videoLinkChanged()"
+            placeholder="https://www.youtube.com/watch?v=MbXWrmQW-OE"
+          />
+          <button
+            class="btn btn-light m-1"
+            type="button"
+            (click)="getVideoMeta()"
+          >
+            <h2><i class="bi bi-arrow-repeat"></i></h2>
+          </button>
+        </div>
       </div>
 
       <div class="col-md-6">
