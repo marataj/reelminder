@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { GroupListComponent } from './group-list/group-list.component';
 import { GroupThumbnailComponent } from './group-thumbnail/group-thumbnail.component';
 import { AddEditGroupComponent } from './add-edit-group/add-edit-group.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AddEditGroupComponent } from './add-edit-group/add-edit-group.component
     AddEditCourseComponent,
     GroupListComponent,
     GroupThumbnailComponent,
-    AddEditGroupComponent
+    AddEditGroupComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

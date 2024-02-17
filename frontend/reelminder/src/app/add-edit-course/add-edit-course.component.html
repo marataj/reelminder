@@ -3,11 +3,7 @@
   <ng-template #newCourse>
     <h2 *ngIf="defaultGroup">New course in {{ defaultGroup.title }} group</h2>
   </ng-template>
-  <form
-    (ngSubmit)="courseFormSubmit()"
-    #f="ngForm"
-    class="p-3 border border-secondary rounded"
-  >
+  <form (ngSubmit)="courseFormSubmit()" #f="ngForm" class="p-3">
     <div class="row mb-3">
       <div class="col-md-12">
         <label for="course_video_link" class="form-label">Video link</label>

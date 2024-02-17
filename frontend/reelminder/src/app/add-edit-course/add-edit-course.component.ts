@@ -1,5 +1,12 @@
 import { getLocaleDateTimeFormat } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SharedService } from '../shared.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
@@ -21,6 +28,8 @@ export class AddEditCourseComponent implements OnInit {
   edited_course: any;
   defaultGroup: any;
   meta: any;
+  @Output() closeMeEvent = new EventEmitter();
+  @Output() confirmEvent = new EventEmitter();
 
   @ViewChild('f') courseForm: NgForm;
   // TODO: change form binding type. Now default values, during course editing are related to the this.edited_course object. If the page is showed in the `new course` context, the this.edited_course is undefined
@@ -77,6 +86,8 @@ export class AddEditCourseComponent implements OnInit {
         this.router.navigate(['course', res.id]);
       });
     }
+    this.confirmEvent.emit();
+    this.closeMeEvent.emit();
   }
 
   videoLinkChanged() {
