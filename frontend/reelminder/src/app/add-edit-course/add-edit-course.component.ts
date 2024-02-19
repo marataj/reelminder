@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Input,
   OnInit,
   Output,
   ViewChild,
@@ -30,11 +31,12 @@ export class AddEditCourseComponent implements OnInit {
   meta: any;
   @Output() closeMeEvent = new EventEmitter();
   @Output() confirmEvent = new EventEmitter();
+  @Input() params: any;
 
   @ViewChild('f') courseForm: NgForm;
   // TODO: change form binding type. Now default values, during course editing are related to the this.edited_course object. If the page is showed in the `new course` context, the this.edited_course is undefined
   ngOnInit(): void {
-    let defaultGroupId = this.route.snapshot.params['defaultGroupId'];
+    let defaultGroupId = this.params['defaultGroupId'];
     if (defaultGroupId) {
       this.shared.getGroupById(defaultGroupId).subscribe((res) => {
         this.defaultGroup = res;
@@ -44,7 +46,7 @@ export class AddEditCourseComponent implements OnInit {
         this.groups = res;
       });
     }
-    let edited_course_id = this.route.snapshot.params['id'];
+    let edited_course_id = this.params['id'];
     if (edited_course_id) {
       this.shared.getCourseById(edited_course_id).subscribe((res) => {
         this.edited_course = res;

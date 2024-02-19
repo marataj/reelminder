@@ -1,108 +1,142 @@
-<div class="container">
-  <h2 *ngIf="edited_course; else newCourse">EDIT: {{ edited_course.title }}</h2>
-  <ng-template #newCourse>
-    <h2 *ngIf="defaultGroup">New course in {{ defaultGroup.title }} group</h2>
-  </ng-template>
-  <form (ngSubmit)="courseFormSubmit()" #f="ngForm" class="p-3">
-    <div class="row mb-3">
-      <div class="col-md-12">
-        <label for="course_video_link" class="form-label">Video link</label>
-        <div class="d-flex align-items-center">
-          <input
-            type="url"
-            class="form-control"
-            [ngModel]="
-              edited_course ? generate_yt_link(edited_course.movie_id) : ''
-            "
-            name="course_video_link"
-            (change)="videoLinkChanged()"
-            placeholder="https://www.youtube.com/watch?v=MbXWrmQW-OE"
-          />
-          <button
-            class="btn btn-light m-1"
-            type="button"
-            (click)="getVideoMeta()"
-          >
-            <h2><i class="bi bi-arrow-repeat"></i></h2>
-          </button>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <label for="course_title" class="form-label">Title</label>
-        <input
-          type="text"
-          class="form-control"
-          [ngModel]="edited_course ? edited_course.title : ''"
-          name="course_title"
-        />
-      </div>
-
-      <div class="col-md-6">
-        <label for="course_author" class="form-label">Author</label>
-        <input
-          type="text"
-          class="form-control"
-          [ngModel]="edited_course ? edited_course.author : ''"
-          name="course_author"
-        />
-      </div>
-
-      <div class="col-md-6">
-        <label for="course_description" class="form-label">Description</label>
-        <input
-          type="text"
-          class="form-control"
-          [ngModel]="edited_course ? edited_course.description : ''"
-          name="course_description"
-        />
-      </div>
-
-      <div class="col-md-6">
-        <label for="assigned_group" *ngIf="!defaultGroup">Group</label>
-        <select
-          class="form-control"
-          ngModel
-          name="assigned_group"
-          *ngIf="!defaultGroup"
+<div
+  class="modal fade border"
+  id="exampleModal"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content bg-light">
+      <div class="col-sm-1 align-self-end">
+        <button
+          type="button"
+          class="btn btn-light m-1"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeMeEvent.emit()"
         >
-          <option [selected] hidden="edited_course.group==undefined">
-            Assign to the group
-          </option>
-          <option value="{{ null }}">Standalone</option>
-          <option
-            *ngFor="let group of groups"
-            value="{{ group.id }}"
-            [selected]="edited_course && group.id == edited_course.group"
-          >
-            {{ group.title }}
-          </option>
-        </select>
+          <h2><i class="bi bi-x-circle"></i></h2>
+        </button>
       </div>
 
-      <div class="col-md-6 py-3">
-        <img
-          src="https://img.youtube.com/vi/{{ img_id }}/sddefault.jpg"
-          style="width: 300px; height: auto"
-        />
+      <div class="container">
+        <h2 *ngIf="edited_course; else newCourse">
+          EDIT: {{ edited_course.title }}
+        </h2>
+        <ng-template #newCourse>
+          <h2 *ngIf="defaultGroup">
+            New course in {{ defaultGroup.title }} group
+          </h2>
+        </ng-template>
+        <form (ngSubmit)="courseFormSubmit()" #f="ngForm" class="p-3">
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <label for="course_video_link" class="form-label"
+                >Video link</label
+              >
+              <div class="d-flex align-items-center">
+                <input
+                  type="url"
+                  class="form-control"
+                  [ngModel]="
+                    edited_course
+                      ? generate_yt_link(edited_course.movie_id)
+                      : ''
+                  "
+                  name="course_video_link"
+                  (change)="videoLinkChanged()"
+                  placeholder="https://www.youtube.com/watch?v=MbXWrmQW-OE"
+                />
+                <button
+                  class="btn btn-light m-1"
+                  type="button"
+                  (click)="getVideoMeta()"
+                >
+                  <h2><i class="bi bi-arrow-repeat"></i></h2>
+                </button>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="course_title" class="form-label">Title</label>
+              <input
+                type="text"
+                class="form-control"
+                [ngModel]="edited_course ? edited_course.title : ''"
+                name="course_title"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <label for="course_author" class="form-label">Author</label>
+              <input
+                type="text"
+                class="form-control"
+                [ngModel]="edited_course ? edited_course.author : ''"
+                name="course_author"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <label for="course_description" class="form-label"
+                >Description</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                [ngModel]="edited_course ? edited_course.description : ''"
+                name="course_description"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <label for="assigned_group" *ngIf="!defaultGroup">Group</label>
+              <select
+                class="form-control"
+                ngModel
+                name="assigned_group"
+                *ngIf="!defaultGroup"
+              >
+                <option [selected] hidden="edited_course.group==undefined">
+                  Assign to the group
+                </option>
+                <option value="{{ null }}">Standalone</option>
+                <option
+                  *ngFor="let group of groups"
+                  value="{{ group.id }}"
+                  [selected]="edited_course && group.id == edited_course.group"
+                >
+                  {{ group.title }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-6 py-3">
+              <img
+                src="https://img.youtube.com/vi/{{ img_id }}/sddefault.jpg"
+                style="width: 300px; height: auto"
+              />
+            </div>
+          </div>
+          <div class="row d-flex justify-content-end">
+            <button type="submit" class="btn btn-light border radius">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                fill="currentColor"
+                class="bi bi-floppy"
+                viewBox="0 0 16 16"
+              >
+                <path d="M11 2H9v3h2z" />
+                <path
+                  d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z"
+                />
+              </svg>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-    <div class="row d-flex justify-content-end">
-      <button type="submit" class="btn btn-light border radius">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="50"
-          height="50"
-          fill="currentColor"
-          class="bi bi-floppy"
-          viewBox="0 0 16 16"
-        >
-          <path d="M11 2H9v3h2z" />
-          <path
-            d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z"
-          />
-        </svg>
-      </button>
-    </div>
-  </form>
+  </div>
 </div>

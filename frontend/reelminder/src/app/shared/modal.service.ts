@@ -15,13 +15,11 @@ export class ModalService {
 
   openModal(
     entry: ViewContainerRef,
-    modalTitle: string,
-    modalBody: string,
+    params: object,
     component: any
   ) {
     this.componentRef = entry.createComponent(component);
-    this.componentRef.instance.title = modalTitle;
-    this.componentRef.instance.body = modalBody;
+    this.componentRef.instance.params = params;
     this.componentRef.instance.closeMeEvent.subscribe(() => this.closeModal());
     this.componentRef.instance.confirmEvent.subscribe(() => this.confirm());
     this.componentSubscriber = new Subject<string>();

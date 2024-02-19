@@ -63,16 +63,11 @@ export class CourseListComponent implements OnInit, OnDestroy {
     }
   }
 
-  createModal() {
+  createCourseModal(params: any) {
     this.sub = this.modalService
-      .openModal(
-        this.entry,
-        'Are you sure ?',
-        'click confirm or close',
-        ModalComponent
-      )
+      .openModal(this.entry, params, AddEditCourseComponent)
       .subscribe((v) => {
-        //your logic
+        this.getCourses();
       });
   }
 
