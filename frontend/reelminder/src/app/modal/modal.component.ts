@@ -18,12 +18,23 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() params: any;
   body: string;
   title: string;
+  timeout_ms: number;
+  confirm_text: string;
   @Output() closeMeEvent = new EventEmitter();
   @Output() confirmEvent = new EventEmitter();
   ngOnInit(): void {
-    console.log('Modal init');
     this.body = this.params.body;
     this.title = this.params.title;
+    this.timeout_ms = this.params.timeout_ms;
+    this.confirm_text = this.params.confirm_text
+      ? this.params.confirm_text
+      : 'confirm';
+
+    if (this.timeout_ms) {
+      setTimeout(() => {
+        this.closeMe();
+      }, this.timeout_ms);
+    }
   }
 
   closeMe() {
@@ -33,7 +44,5 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.confirmEvent.emit();
   }
 
-  ngOnDestroy(): void {
-    console.log(' Modal destroyed');
-  }
+  ngOnDestroy(): void {}
 }

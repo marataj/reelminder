@@ -1,13 +1,12 @@
 import {
   Component,
   OnInit,
-  Input,
   OnDestroy,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { SharedService } from '../shared.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ModalService } from '../shared/modal.service';
 import { ModalComponent } from '../modal/modal.component';
@@ -21,7 +20,8 @@ export class CourseListComponent implements OnInit, OnDestroy {
   constructor(
     private http: SharedService,
     private route: ActivatedRoute,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private router: Router
   ) {}
 
   groupId: number = null;
@@ -67,7 +67,25 @@ export class CourseListComponent implements OnInit, OnDestroy {
     this.sub = this.modalService
       .openModal(this.entry, params, AddEditCourseComponent)
       .subscribe((v) => {
+        console.log(v);
         this.getCourses();
+        setTimeout(() => {
+          this.CreatedCourseModal(v.event.course);
+        }, 1000);
+      });
+  }
+
+  CreatedCourseModal(course) {
+    let params = {
+      title: `Course ${course.title} created succesfully!`,
+      body: `Do you want to open this course?`,
+      confirm_text: `Open`,
+      timeout_ms: 5000,
+    };
+    this.sub = this.modalService
+      .openModal(this.entry, params, ModalComponent)
+      .subscribe((v) => {
+        this.router.navigate(['course', course.id]);
       });
   }
 

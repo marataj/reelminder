@@ -81,15 +81,15 @@ export class AddEditCourseComponent implements OnInit {
       this.shared
         .updateCourse(this.edited_course.id, course)
         .subscribe((res) => {
-          this.router.navigate(['course', res.id]);
+          this.confirmEvent.emit();
+          this.closeMeEvent.emit();
         });
     } else {
       this.shared.createCourse(course).subscribe((res) => {
-        this.router.navigate(['course', res.id]);
+        this.confirmEvent.emit({ course: res });
+        this.closeMeEvent.emit();
       });
     }
-    this.confirmEvent.emit();
-    this.closeMeEvent.emit();
   }
 
   videoLinkChanged() {

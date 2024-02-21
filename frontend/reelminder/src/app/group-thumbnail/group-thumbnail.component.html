@@ -1,3 +1,5 @@
+<div #modal></div>
+
 <div class="card text-dark bg-light p-1" style="max-width: 18rem">
   <div class="card-body">
     <h3 class="card-title">{{ group.title }}</h3>
@@ -9,10 +11,10 @@
         ><h2><i class="bi bi-collection-play"></i></h2
       ></a>
 
-      <a class="btn btn-light" (click)="deleteGroup()"
+      <a class="btn btn-light" (click)="deleteGroupeModal()"
         ><h2><i class="bi bi-trash"></i></h2
       ></a>
-      <a class="btn btn-light" routerLink="/group/{{ group.id }}/edit">
+      <a class="btn btn-light" (click)="createGroupModal({ id: group.id })">
         <h2><i class="bi bi-pencil-square"></i></h2>
       </a>
     </div>

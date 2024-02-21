@@ -4,10 +4,16 @@ import {
   Component,
   OnDestroy,
   OnInit,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { ModalService } from '../shared/modal.service';
+import { Subscription } from 'rxjs';
+import { AddEditCourseComponent } from '../add-edit-course/add-edit-course.component';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-course',
@@ -21,10 +27,14 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   public editor: any;
   public notes: any;
   public group: any = null;
+  @ViewChild('modal', { read: ViewContainerRef })
+  entry!: ViewContainerRef;
+  sub!: Subscription;
   constructor(
     private shared: SharedService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private modalService: ModalService
   ) {}
 
   ngOnInit() {
@@ -40,6 +50,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     });
     this.startPlayer();
+    this.player.cueVideoById(this.course.movie_id);
   }
 
   ngAfterViewInit(): void {
@@ -49,6 +60,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.player.destroy();
+    if (this.sub) this.sub.unsubscribe();
   }
 
   startPlayer() {
@@ -120,7 +132,30 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deleteCourse() {
     this.shared.deleteCourse(this.course.id).subscribe((res) => {
-      this.router.navigate(['']);
+      this.router.navigate(['courses']);
     });
+  }
+
+  deleteCourseModal() {
+    let params = {
+      title: 'Are you sure?',
+      body: `Are you sure to delete course "${this.course.title}"?`,
+      confirm_text: `Delete`,
+    };
+    this.sub = this.modalService
+      .openModal(this.entry, params, ModalComponent)
+      .subscribe((v) => {
+        this.deleteCourse();
+      });
+  }
+
+  createCourseModal(params: any) {
+    this.sub = this.modalService
+      .openModal(this.entry, params, AddEditCourseComponent)
+      .subscribe((v) => {
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 500);
+      });
   }
 }

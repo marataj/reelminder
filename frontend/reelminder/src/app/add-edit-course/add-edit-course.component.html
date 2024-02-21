@@ -46,6 +46,7 @@
                   name="course_video_link"
                   (change)="videoLinkChanged()"
                   placeholder="https://www.youtube.com/watch?v=MbXWrmQW-OE"
+                  [disabled]="edited_course"
                 />
                 <button
                   class="btn btn-light m-1"

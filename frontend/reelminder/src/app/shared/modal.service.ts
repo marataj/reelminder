@@ -8,21 +8,19 @@ declare var window: any;
 })
 export class ModalService {
   private componentRef!: ComponentRef<any>;
-  private componentSubscriber!: Subject<string>;
+  private componentSubscriber!: Subject<any>;
   modal: any;
 
   constructor() {}
 
-  openModal(
-    entry: ViewContainerRef,
-    params: object,
-    component: any
-  ) {
+  openModal(entry: ViewContainerRef, params: object, component: any) {
     this.componentRef = entry.createComponent(component);
     this.componentRef.instance.params = params;
     this.componentRef.instance.closeMeEvent.subscribe(() => this.closeModal());
-    this.componentRef.instance.confirmEvent.subscribe(() => this.confirm());
-    this.componentSubscriber = new Subject<string>();
+    this.componentRef.instance.confirmEvent.subscribe(($event) =>
+      this.confirm($event)
+    );
+    this.componentSubscriber = new Subject<any>();
     this.modal = new window.bootstrap.Modal(
       document.getElementById('exampleModal')
     );
@@ -36,8 +34,8 @@ export class ModalService {
     this.componentRef.destroy();
   }
 
-  confirm() {
-    this.componentSubscriber.next('confirm');
+  confirm(event) {
+    this.componentSubscriber.next({ type: 'confirm', event: event });
     this.closeModal();
   }
 }
