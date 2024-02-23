@@ -17,6 +17,7 @@ import { GroupListComponent } from './group-list/group-list.component';
 import { GroupThumbnailComponent } from './group-thumbnail/group-thumbnail.component';
 import { AddEditGroupComponent } from './add-edit-group/add-edit-group.component';
 import { ModalComponent } from './modal/modal.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ModalComponent } from './modal/modal.component';
     GroupListComponent,
     GroupThumbnailComponent,
     AddEditGroupComponent,
-    ModalComponent
+    ModalComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
