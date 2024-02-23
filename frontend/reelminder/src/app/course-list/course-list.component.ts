@@ -71,15 +71,15 @@ export class CourseListComponent implements OnInit, OnDestroy {
         this.getCourses();
         setTimeout(() => {
           this.CreatedCourseModal(v.event.course);
-        }, 1000);
+        }, 100);
       });
   }
 
   CreatedCourseModal(course) {
     let params = {
-      title: `Course ${course.title} created succesfully!`,
-      body: `Do you want to open this course?`,
-      confirm_text: `Open`,
+      title: `Course created succesfully! Click button to open!`,
+      body_icone: 'created',
+      button_icone: 'play',
       timeout_ms: 5000,
     };
     this.sub = this.modalService

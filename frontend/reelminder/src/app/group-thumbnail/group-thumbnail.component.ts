@@ -44,9 +44,9 @@ export class GroupThumbnailComponent implements OnInit {
 
   deleteGroupeModal() {
     let params = {
-      title: 'Are you sure?',
-      body: `Are you sure to delete group "${this.group.title}"?`,
-      confirm_text: `Delete`,
+      title: `Are you sure to delete course "${this.group.title}"?`,
+      body_icone: 'question',
+      button_icone: `delete`,
     };
     this.sub = this.modalService
       .openModal(this.entry, params, ModalComponent)

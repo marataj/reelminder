@@ -77,13 +77,11 @@ export class AddEditGroupComponent implements OnInit {
         .subscribe((res) => {
           this.confirmEvent.emit();
           this.closeMeEvent.emit();
-          this.router.navigate(['groups']);
         });
     } else {
       this.shared.createGroup(formData).subscribe((res) => {
-        this.confirmEvent.emit();
+        this.confirmEvent.emit({ group: res });
         this.closeMeEvent.emit();
-        this.router.navigate(['groups']);
       });
     }
   }

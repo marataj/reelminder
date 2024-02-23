@@ -138,9 +138,9 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deleteCourseModal() {
     let params = {
-      title: 'Are you sure?',
-      body: `Are you sure to delete course "${this.course.title}"?`,
-      confirm_text: `Delete`,
+      title: `Are you sure to delete course "${this.course.title}"?`,
+      body_icone: 'question',
+      button_icone: `delete`,
     };
     this.sub = this.modalService
       .openModal(this.entry, params, ModalComponent)
