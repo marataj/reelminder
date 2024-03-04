@@ -12,12 +12,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { NoteComponent } from './note/note.component';
 import { AddEditCourseComponent } from './add-edit-course/add-edit-course.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GroupListComponent } from './group-list/group-list.component';
 import { GroupThumbnailComponent } from './group-thumbnail/group-thumbnail.component';
 import { AddEditGroupComponent } from './add-edit-group/add-edit-group.component';
 import { ModalComponent } from './modal/modal.component';
 import { FooterComponent } from './footer/footer.component';
+import { RegistrationComponent } from './authentication/registration/registration.component';
+import { LoginComponent } from './authentication/login/login.component';
 
 @NgModule({
   declarations: [
@@ -33,13 +35,17 @@ import { FooterComponent } from './footer/footer.component';
     GroupThumbnailComponent,
     AddEditGroupComponent,
     ModalComponent,
-    FooterComponent
+    FooterComponent,
+    RegistrationComponent,
+    LoginComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [SharedService],
   bootstrap: [AppComponent]

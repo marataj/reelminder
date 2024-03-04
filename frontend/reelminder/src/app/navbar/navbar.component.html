@@ -12,13 +12,18 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" routerLink="courses/"
+    <div class="navbar-nav mr-auto">
+      <a class="nav-item nav-link" routerLink="courses/"
         >My courses <span class="sr-only">(current)</span></a
       >
       <a class="nav-item nav-link" routerLink="groups"
         >My groups <span class="sr-only">(current)</span></a
       >
+    </div>
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="auth/registration">Register</a>
+      <a class="nav-item nav-link mr-auto" routerLink="auth/login">Login</a>
+      <a class="nav-item nav-link mr-auto" routerLink="#">Logout</a>
     </div>
   </div>
 </nav>
