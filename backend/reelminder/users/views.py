@@ -1,43 +1,37 @@
-from django.shortcuts import render
-from rest_framework.views import APIView
-from .serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .models import User
-import jwt
-import datetime
+from rest_framework.decorators import api_view, permission_classes
+from .models import CustomUser
+
+from rest_framework import status
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import MyTokenObtainPairSerializer, RegisterSerializer, ProfileSerializer, UserSerializer
+from rest_framework import generics
+from rest_framework.permissions import AllowAny, IsAuthenticated
+
 # Create your views here.
 
-class Register(APIView):
-    def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
+class RegisterView(generics.CreateAPIView):
+    queryset = CustomUser.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getProfile(request):
+    user = request.user
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+# TODO: add confirmation using password, add authentication failed, set_password()
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateProfile(request):
+    user = request.user
+    serializer = UserSerializer(user, data=request.data, partial=True)
+    if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
-
-class Login(APIView):
-    def post(self, request,):
-        email = request.data["email"]
-        password = request.data["password"]
-
-        user = User.objects.filter(email=email).first()
-
-        if user is None:
-            raise AuthenticationFailed("User not found")
-        
-        if not user.check_password(password):
-            raise AuthenticationFailed("Wrong password")
-        
-        payload = {
-            'id': user.id,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-            'iat': datetime.datetime.utcnow()
-        }
-
-        token = jwt.encode(payload, "secret", algorithm="HS256")
-        response = Response()
-        response.set_cookie(key ='jwt', value= token, httponly=True)
-        response.data = {
-            "message": f"{user.name} logged in"
-        }
-        return response
+    return Response(serializer.data)

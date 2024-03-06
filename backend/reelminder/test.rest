@@ -1,0 +1,49 @@
+POST http://127.0.0.1:8000/auth/register/
+Content-Type: application/json
+
+{
+    "username": "",
+    "email": "",
+    "password": "",
+    "password2": ""
+}
+
+###
+
+POST http://127.0.0.1:8000/auth/token/
+Content-Type: application/json
+
+{
+    "username": "",
+    "password": ""
+}
+
+###
+
+GET http://127.0.0.1:8000/auth/profile/
+Content-Type: application/json
+Authorization: Bearer ......
+
+{
+    
+}
+
+###
+
+PUT http://127.0.0.1:8000/auth/profile/update/
+Content-Type: application/json
+Authorization: Bearer .......
+
+{
+    "password": "",
+    "confirmation_password": ""
+}
+
+###
+
+POST http://127.0.0.1:8000/auth/token/refresh/
+Content-Type: application/json
+
+{
+    "refresh": "......."
+}
