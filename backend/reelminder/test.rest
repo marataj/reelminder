@@ -2,10 +2,10 @@ POST http://127.0.0.1:8000/auth/register/
 Content-Type: application/json
 
 {
-    "username": "",
-    "email": "",
-    "password": "",
-    "password2": ""
+    "username": "mat",
+    "email": "mat@mat.pl",
+    "password": "mateusz123",
+    "password2": "mateusz123"
 }
 
 ###
@@ -14,8 +14,8 @@ POST http://127.0.0.1:8000/auth/token/
 Content-Type: application/json
 
 {
-    "username": "",
-    "password": ""
+    "username": "mat",
+    "password": "mateusz123"
 }
 
 ###
