@@ -4,7 +4,7 @@
   role="dialog"
   aria-labelledby="exampleModalLabel"
 >
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header bg-light" *ngIf="title">
         <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
@@ -18,16 +18,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body row d-flex justify-content-center">
-        <div class="row" *ngIf="body">
-          <p>{{ body }}</p>
-        </div>
-        <div class="row" *ngIf="body_icone">
-          <h1
-            class="align-self-center"
-            style="font-size: 70px"
-            [innerHTML]="body_icone"
-          ></h1>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center">
+          <div class="row m-2" *ngIf="body" style="white-space: pre-line">
+            <p>{{ body }}</p>
+          </div>
+          <div class="row d-flex" *ngIf="body_icone">
+            <h1
+              class="align-self-center"
+              style="font-size: 70px"
+              [innerHTML]="body_icone"
+            ></h1>
+          </div>
         </div>
       </div>
       <div class="modal-footer">

@@ -20,6 +20,7 @@ import { ModalComponent } from './modal/modal.component';
 import { FooterComponent } from './footer/footer.component';
 import { RegistrationComponent } from './authentication/registration/registration.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { AuthenticateComponent } from './authentication/authenticate/authenticate.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { LoginComponent } from './authentication/login/login.component';
     FooterComponent,
     RegistrationComponent,
     LoginComponent,
+    AuthenticateComponent,
     
   ],
   imports: [

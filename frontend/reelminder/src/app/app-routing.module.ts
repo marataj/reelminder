@@ -8,6 +8,7 @@ import { GroupListComponent } from './group-list/group-list.component';
 import { AddEditGroupComponent } from './add-edit-group/add-edit-group.component';
 import { RegistrationComponent } from './authentication/registration/registration.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { AuthenticateComponent } from './authentication/authenticate/authenticate.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,8 +21,7 @@ const routes: Routes = [
   { path: 'course/:id/edit', component: AddEditCourseComponent },
   { path: 'group/add', component: AddEditGroupComponent },
   { path: 'group/:id/edit', component: AddEditGroupComponent },
-  { path: 'auth/registration', component: RegistrationComponent },
-  { path: 'auth/login', component: LoginComponent },
+  { path: 'auth/auth', component: AuthenticateComponent },
 ];
 
 @NgModule({

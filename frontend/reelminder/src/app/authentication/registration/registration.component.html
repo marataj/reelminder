@@ -1,12 +1,38 @@
-<div class="container bg-light">
+<div class="container">
   <div class="row d-flex justify-content-center">
     <div class="col-md-6 p-5">
-      <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="registerUser()"
+        (keydown.enter)="$event.preventDefault()"
+      >
+        <label class="form-label m-1" for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          class="form-control m-1"
+          formControlName="username"
+        />
         <label class="form-label m-1" for="email">Email</label>
-        <input type="text" id="email" class="form-control m-1" formControlName="email"/>
+        <input
+          type="text"
+          id="email"
+          class="form-control m-1"
+          formControlName="email"
+        />
         <label class="form-label m-2">Password</label>
-        <input type="password" class="form-control m-1" formControlName="password"/>
-        <button class="btn btn-primary m-1">Register</button>
+        <input
+          type="password"
+          class="form-control m-1"
+          formControlName="password"
+        />
+        <label class="form-label m-2" for="password2">Confirm password</label>
+        <input
+          type="password2"
+          class="form-control m-1"
+          formControlName="password2"
+        />
+        <button class="btn btn-primary m-2">Register</button>
       </form>
     </div>
   </div>

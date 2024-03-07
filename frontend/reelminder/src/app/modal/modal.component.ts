@@ -6,14 +6,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-
-type BodyIcone = 'created' | 'question' | 'info';
-type ButtonIcone = 'play' | 'openGroup' | 'delete' | 'confirm';
+import { BodyIcone, ButtonIcone, ModalModel } from './modal.model';
 
 let BODY_ICONES = {
   created: `<i class="bi bi-bookmark-check"></i>`,
   question: `<i class="bi bi-question-circle"></i>`,
   info: `<i class="bi bi-info-circle"></i>`,
+  stop: `<i class="bi bi-exclamation-triangle"></i>`,
 };
 
 let BUTTON_ICONES = {
@@ -31,7 +30,7 @@ let BUTTON_ICONES = {
 export class ModalComponent implements OnInit, OnDestroy {
   constructor() {}
 
-  @Input() params: any;
+  @Input() params: ModalModel;
 
   body: string;
   title: string;

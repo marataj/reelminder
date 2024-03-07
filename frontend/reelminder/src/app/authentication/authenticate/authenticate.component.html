@@ -1,0 +1,19 @@
+<div #modal></div>
+<div class="row" style="margin-top: 10rem">
+  <div class="col-md-6 d-flex justify-content-center">
+    <h2>Sign up</h2>
+  </div>
+  <div class="col-md-6 d-flex justify-content-center">
+    <h2>Sign in</h2>
+  </div>
+</div>
+<div class="row d-flex align-items-center">
+  <div class="col-md-6 border-right">
+    <app-registration
+      (notificationEvent)="registerModal($event)"
+    ></app-registration>
+  </div>
+  <div class="col-md-6">
+    <app-login></app-login>
+  </div>
+</div>
