@@ -53,7 +53,6 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.button_icone = this.params.button_icone
       ? BUTTON_ICONES[this.params.button_icone]
       : null;
-    console.log(this.button_icone, this.params.button_icone);
     if (this.timeout_ms) {
       setTimeout(() => {
         this.closeMe();

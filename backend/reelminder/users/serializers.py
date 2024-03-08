@@ -4,6 +4,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
+from datetime import datetime
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,13 +12,14 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "username", "password", "email")
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        token['username'] = user.username
-        token['email'] = user.email
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        token = self.get_token(self.user)
+        data["access_lifetime_s"] = str(token.access_token.lifetime.seconds)
+        data['username'] = self.user.username
+        data['email'] = self.user.email
 
-        return token
+        return data
 
 
 class RegisterSerializer(serializers.ModelSerializer):

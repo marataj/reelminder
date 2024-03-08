@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
   registerUser() {
     this.authService.register(this.registerForm.getRawValue()).subscribe(
       (res) => {
-        console.log('hahahh');
+        this.registerForm.reset();
         this.notificationEvent.emit({
           title: 'Registered successfully !',
           body_icone: 'created',
@@ -32,7 +32,6 @@ export class RegistrationComponent implements OnInit {
         });
       },
       (e) => {
-        console.log(e);
         const keys = Object.keys(e.error);
         let err_msg = '';
         keys.forEach((k) => {

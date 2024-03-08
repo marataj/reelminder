@@ -67,7 +67,6 @@ export class CourseListComponent implements OnInit, OnDestroy {
     this.sub = this.modalService
       .openModal(this.entry, params, AddEditCourseComponent)
       .subscribe((v) => {
-        console.log(v);
         this.getCourses();
         setTimeout(() => {
           this.CreatedCourseModal(v.event.course);

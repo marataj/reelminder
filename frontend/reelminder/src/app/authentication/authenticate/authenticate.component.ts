@@ -21,7 +21,6 @@ export class AuthenticateComponent implements OnDestroy {
   sub!: Subscription;
 
   registerModal(event: ModalModel) {
-    console.log('lalal');
     let params = event;
     this.sub = this.modalService
       .openModal(this.entry, params, ModalComponent)
