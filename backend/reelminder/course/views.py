@@ -4,9 +4,12 @@ from .serializers import CourseSerializer, LabelSerializer, NoteSerializer, Grou
 from .utils import retrieve_yt_meta
 from.models import Course, Label, Note, Group
 from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 import json
 # Create your views here.
 
+@permission_classes([IsAuthenticated])
 class CourseCreate(generics.ListCreateAPIView):
     """
     Endpoint for creating new courses.
@@ -16,6 +19,7 @@ class CourseCreate(generics.ListCreateAPIView):
     serializer_class = CourseSerializer
 
 #  TODO: check how to edit generics to achieve this
+@permission_classes([IsAuthenticated])
 class CourseByGroup(views.APIView):
     """
     Endpoint for retrieving a list of courses.
@@ -27,6 +31,7 @@ class CourseByGroup(views.APIView):
         serializer = CourseSerializer(queryset, many=True)
         return Response(serializer.data)
 
+@permission_classes([IsAuthenticated])
 class CourseDetails(generics.RetrieveUpdateDestroyAPIView):
     """
     Endpoint for retrieving, updating and deleting courses.
@@ -34,6 +39,7 @@ class CourseDetails(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+
 
 class Label(generics.ListCreateAPIView):
     """
@@ -45,6 +51,7 @@ class Label(generics.ListCreateAPIView):
     serializer_class = LabelSerializer
 
 #  TODO: Refactor - remove course-id query param (this info is already in the body of the request!)
+@permission_classes([IsAuthenticated])
 class NoteView(views.APIView):
 
     def get(self, request, course_id, format=None):
@@ -60,10 +67,12 @@ class NoteView(views.APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 #  TODO: Refactor above will probably allow reducing this view/ separate url
+@permission_classes([IsAuthenticated])
 class NoteHandler(generics.DestroyAPIView, generics.UpdateAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
 
+@permission_classes([IsAuthenticated])
 class GroupCreate(views.APIView):
     """
     Endpoint for creating new courses.
@@ -78,6 +87,7 @@ class GroupCreate(views.APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@permission_classes([IsAuthenticated])
 class GroupUpdate(views.APIView):
     """
     Endpoint for updating existing groups.
@@ -93,6 +103,7 @@ class GroupUpdate(views.APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@permission_classes([IsAuthenticated])
 class GroupList(generics.ListAPIView):
     """
     Endpoint for creating new courses.
@@ -102,6 +113,7 @@ class GroupList(generics.ListAPIView):
     serializer_class = GroupSerializer
 
 #  TODO: check docstrings
+@permission_classes([IsAuthenticated])
 class GroupDetails(generics.RetrieveDestroyAPIView):
     """
     Endpoint for retrieving, updating and deleting courses.
@@ -111,6 +123,7 @@ class GroupDetails(generics.RetrieveDestroyAPIView):
     serializer_class = GroupSerializer
         
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_yt_video_meta(request, id):
     """
     Returns youtube video metadata.

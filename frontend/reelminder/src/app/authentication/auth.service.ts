@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { AuthResponseData, LoginData, RegisterData, User } from './auth.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
   readonly AUTH_UTL: string = 'http://127.0.0.1:8000/auth/';
 
   constructor(private httpClient: HttpClient) {}

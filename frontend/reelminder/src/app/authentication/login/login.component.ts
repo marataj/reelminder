@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ModalModel } from '../../modal/modal.model';
 import { Router } from '@angular/router';
+import { exhaustMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-login',

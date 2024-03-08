@@ -58,7 +58,7 @@ export class User {
     /**
      * Returns access token if still valid.
      */
-    if (this.is_valid()) {
+    if (!this.is_valid()) {
       return null;
     }
     return this._accessToken;
