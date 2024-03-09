@@ -20,13 +20,45 @@ export class AuthService {
     return this.httpClient.post(this.AUTH_UTL + 'login/', user);
   }
 
+  autoLogin() {
+    const userData: {
+      _accessToken: string;
+      _refreshToken: string;
+      username: string;
+      email: string;
+      _expirationDate: Date;
+    } = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
+      return;
+    }
+    const loadedUser = new User(
+      userData._accessToken,
+      userData._refreshToken,
+      userData.username,
+      userData.email,
+      new Date(userData._expirationDate)
+    );
+
+    if (loadedUser.is_valid) {
+      this.user.next(loadedUser);
+    }
+  }
+
   logout() {
     this.user.next(null);
+    localStorage.removeItem('userData');
     this.router.navigate(['']);
   }
 
   handleAuthentication(authResponse: AuthResponseData) {
-    const user = new User(authResponse);
+    const user = new User(
+      authResponse.access,
+      authResponse.refresh,
+      authResponse.username,
+      authResponse.email,
+      new Date(new Date().getTime() + authResponse.access_lifetime_s * 1000)
+    );
     this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 }

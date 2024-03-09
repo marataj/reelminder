@@ -28,21 +28,12 @@ export class User {
    * @param email
    * @param _expirationDate
    */
-  private _accessToken: string;
-  private _refreshToken: string;
-  public username: string;
-  public email: string;
-  private _expirationDate: Date;
-
-  constructor(authResponse: AuthResponseData) {
-    this._accessToken = authResponse.access;
-    this._refreshToken = authResponse.refresh;
-    this.username = authResponse.username;
-    this.email = authResponse.username;
-    this._expirationDate = new Date(
-      new Date().getTime() + authResponse.access_lifetime_s * 1000
-    );
-  }
+  
+  constructor(private _accessToken: string,
+    private _refreshToken: string,
+    public username: string,
+    public email: string,
+    private _expirationDate: Date) {}
 
   is_valid() {
     /**
