@@ -28,12 +28,14 @@ export class User {
    * @param email
    * @param _expirationDate
    */
-  
-  constructor(private _accessToken: string,
+
+  constructor(
+    private _accessToken: string,
     private _refreshToken: string,
     public username: string,
     public email: string,
-    private _expirationDate: Date) {}
+    private _expirationDate: Date
+  ) {}
 
   is_valid() {
     /**

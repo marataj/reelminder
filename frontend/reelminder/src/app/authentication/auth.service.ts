@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, firstValueFrom } from 'rxjs';
 import { AuthResponseData, LoginData, RegisterData, User } from './auth.model';
 import { Route, Router } from '@angular/router';
 
@@ -8,8 +8,12 @@ import { Route, Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
+  /**
+   * Service responsible for handling authentication.
+   */
   user = new BehaviorSubject<User>(null);
   readonly AUTH_UTL: string = 'http://127.0.0.1:8000/auth/';
+  private tokenExpirationTimer: any;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
@@ -19,8 +23,53 @@ export class AuthService {
   login(user: LoginData): Observable<any> {
     return this.httpClient.post(this.AUTH_UTL + 'login/', user);
   }
+  refreshToken(refreshToken: { refresh: string }): Observable<any> {
+    return this.httpClient.post(this.AUTH_UTL + 'token/refresh/', refreshToken);
+  }
+
+  async refreshTokens(): Promise<boolean> {
+    /**
+     * Method responsible for refreshing the access and refresh tokens using proper endpoint,
+     * updating userData in the localStorage and sends new user using user subject.
+     *
+     * Returns true if flow was done, false otherwise.
+     */
+    const userData: {
+      _accessToken: string;
+      _refreshToken: string;
+      username: string;
+      email: string;
+      _expirationDate: Date;
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    let tokenPair = await firstValueFrom(
+      this.refreshToken({ refresh: userData._refreshToken })
+    );
+
+    if (tokenPair.access && tokenPair.refresh) {
+      const loadedUser = new User(
+        tokenPair.access,
+        tokenPair.refresh,
+        userData.username,
+        userData.email,
+        new Date(userData._expirationDate)
+      );
+      if (loadedUser.is_valid) {
+        this.user.next(loadedUser);
+        localStorage.setItem('userData', JSON.stringify(loadedUser));
+        let remainingTokenExpirationDuration =
+          new Date(userData._expirationDate).getTime() - new Date().getTime();
+        this.autoLogout(remainingTokenExpirationDuration);
+        return true;
+      }
+    }
+    return false;
+  }
 
   autoLogin() {
+    /**
+     * Method responsible for automatically singing in the user, based on locally stored user data.
+     */
     const userData: {
       _accessToken: string;
       _refreshToken: string;
@@ -41,16 +90,44 @@ export class AuthService {
 
     if (loadedUser.is_valid) {
       this.user.next(loadedUser);
+      let remainingTokenExpirationDuration =
+        new Date(userData._expirationDate).getTime() - new Date().getTime();
+      this.autoLogout(remainingTokenExpirationDuration);
+    } else {
+      this.refreshTokens();
     }
   }
 
+  autoLogout(tokenExpirationDuration) {
+    /**
+     * Method responsible for automatically logging out the user, after reaching the timeout.
+     */
+    this.tokenExpirationTimer = setTimeout(() => {
+      if (this.refreshTokens()) {
+        return;
+      }
+      this.logout();
+    }, tokenExpirationDuration);
+  }
+
   logout() {
+    /**
+     * Logout method.
+     */
     this.user.next(null);
-    localStorage.removeItem('userData');
     this.router.navigate(['']);
+    localStorage.removeItem('userData');
+
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
   }
 
   handleAuthentication(authResponse: AuthResponseData) {
+    /**
+     * Method responsible for logging in the user, based on the Authentication Response.
+     */
     const user = new User(
       authResponse.access,
       authResponse.refresh,
@@ -59,6 +136,7 @@ export class AuthService {
       new Date(new Date().getTime() + authResponse.access_lifetime_s * 1000)
     );
     this.user.next(user);
+    this.autoLogout(authResponse.access_lifetime_s * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
   }
 }
