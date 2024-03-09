@@ -9,11 +9,16 @@ import { AddEditGroupComponent } from './add-edit-group/add-edit-group.component
 import { RegistrationComponent } from './authentication/registration/registration.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { AuthenticateComponent } from './authentication/authenticate/authenticate.component';
+import { isAuthenticated } from './authentication/auth-guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'courses/:groupId', component: CourseListComponent },
-  { path: 'courses', component: CourseListComponent },
+  {
+    path: 'courses',
+    component: CourseListComponent,
+    canActivate: [isAuthenticated],
+  },
   { path: 'groups', component: GroupListComponent },
   { path: 'course/add', component: AddEditCourseComponent },
   { path: 'course/add/:defaultGroupId', component: AddEditCourseComponent },
