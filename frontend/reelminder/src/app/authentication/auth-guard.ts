@@ -44,7 +44,7 @@ export class IsNotAuthenticatedService {
   ): boolean | Promise<boolean> | Observable<boolean> {
     return this.authService.user.pipe(
       map((user) => {
-        return !!user;
+        return !user;
       })
     );
   }
@@ -57,5 +57,5 @@ export const isNotAuthenticated: CanActivateFn = (
   /**
    * Guard activates only if user is not authenticated
    */
-  return inject(IsAuthenticatedService).canActivate(next, state);
+  return inject(IsNotAuthenticatedService).canActivate(next, state);
 };

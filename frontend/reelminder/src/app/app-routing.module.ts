@@ -9,24 +9,66 @@ import { AddEditGroupComponent } from './add-edit-group/add-edit-group.component
 import { RegistrationComponent } from './authentication/registration/registration.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { AuthenticateComponent } from './authentication/authenticate/authenticate.component';
-import { isAuthenticated } from './authentication/auth-guard';
+import {
+  isAuthenticated,
+  isNotAuthenticated,
+} from './authentication/auth-guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'courses/:groupId', component: CourseListComponent },
   {
     path: 'courses',
     component: CourseListComponent,
     canActivate: [isAuthenticated],
+    children: [{ path: ':groupId', component: CourseListComponent }],
   },
-  { path: 'groups', component: GroupListComponent },
-  { path: 'course/add', component: AddEditCourseComponent },
-  { path: 'course/add/:defaultGroupId', component: AddEditCourseComponent },
-  { path: 'course/:id', component: CourseComponent },
-  { path: 'course/:id/edit', component: AddEditCourseComponent },
-  { path: 'group/add', component: AddEditGroupComponent },
-  { path: 'group/:id/edit', component: AddEditGroupComponent },
-  { path: 'auth/auth', component: AuthenticateComponent },
+  {
+    path: 'groups',
+    component: GroupListComponent,
+    canActivate: [isAuthenticated],
+  },
+  {
+    path: 'course',
+    canActivate: [isAuthenticated],
+    children: [
+      {
+        path: 'add',
+        component: AddEditCourseComponent,
+      },
+      {
+        path: 'add/:defaultGroupId',
+        component: AddEditCourseComponent,
+      },
+      {
+        path: ':id',
+        component: CourseComponent,
+      },
+      {
+        path: ':id/edit',
+        component: AddEditCourseComponent,
+      },
+    ],
+  },
+  {
+    path: 'group',
+    canActivate: [isAuthenticated],
+    children: [
+      {
+        path: 'add',
+        component: AddEditGroupComponent,
+      },
+      {
+        path: ':id/edit',
+        component: AddEditGroupComponent,
+      },
+    ],
+  },
+
+  {
+    path: 'auth/auth',
+    component: AuthenticateComponent,
+    canActivate: [isNotAuthenticated],
+  },
 ];
 
 @NgModule({
