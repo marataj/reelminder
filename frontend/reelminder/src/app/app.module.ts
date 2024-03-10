@@ -22,6 +22,7 @@ import { RegistrationComponent } from './authentication/registration/registratio
 import { LoginComponent } from './authentication/login/login.component';
 import { AuthenticateComponent } from './authentication/authenticate/authenticate.component';
 import { AuthInterceptorService } from './authentication/auth-interceptor.service';
+import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AuthInterceptorService } from './authentication/auth-interceptor.servic
     RegistrationComponent,
     LoginComponent,
     AuthenticateComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

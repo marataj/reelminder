@@ -19,19 +19,18 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def getProfile(request):
-    user = request.user
-    serializer = UserSerializer(user, many=False)
-    return Response(serializer.data)
 
-# TODO: add confirmation using password, add authentication failed, set_password()
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def updateProfile(request):
-    user = request.user
-    serializer = UserSerializer(user, data=request.data, partial=True)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+def chanegPassword(request):
+    old_password = request.data.pop("old_password")
+    new_password = request.data.pop("new_password")
+    new_password2 = request.data.pop("new_password2")
+    if new_password != new_password2:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    user: User = request.user
+    if not user.check_password(old_password):
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    user.set_password(new_password)
+    user.save()
+    return Response(status=status.HTTP_202_ACCEPTED)
