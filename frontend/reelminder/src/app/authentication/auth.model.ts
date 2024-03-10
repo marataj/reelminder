@@ -18,6 +18,11 @@ export interface AuthResponseData {
   email: string;
 }
 
+export interface ChangePasswordData {
+  old: string;
+  new: string;
+  new2: string;
+}
 export class User {
   /**
    * User model, for storing informations about current authenticated user.

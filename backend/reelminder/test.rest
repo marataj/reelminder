@@ -2,10 +2,10 @@ POST http://127.0.0.1:8000/auth/register/
 Content-Type: application/json
 
 {
-    "username": "mat",
-    "email": "mat@mat.pl",
-    "password": "mateusz123",
-    "password2": "mateusz123"
+    "username": "",
+    "email": "",
+    "password": "",
+    "password2": ""
 }
 
 ###
@@ -14,29 +14,20 @@ POST http://127.0.0.1:8000/auth/login/
 Content-Type: application/json
 
 {
-    "username": "mat",
-    "password": "mateusz123"
+    "username": "",
+    "password": ""
 }
 
 ###
 
-GET http://127.0.0.1:8000/auth/profile/
+PUT http://127.0.0.1:8000/auth/password/
 Content-Type: application/json
-Authorization: Bearer ......
+Authorization: Bearer .
 
 {
-    
-}
-
-###
-
-PUT http://127.0.0.1:8000/auth/profile/update/
-Content-Type: application/json
-Authorization: Bearer .......
-
-{
-    "password": "",
-    "confirmation_password": ""
+    "old_password": "",
+    "new_password": "",
+    "new_password2": ""
 }
 
 ###

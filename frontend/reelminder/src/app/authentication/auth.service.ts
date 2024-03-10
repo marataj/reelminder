@@ -1,7 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, firstValueFrom } from 'rxjs';
-import { AuthResponseData, LoginData, RegisterData, User } from './auth.model';
+import {
+  AuthResponseData,
+  ChangePasswordData,
+  LoginData,
+  RegisterData,
+  User,
+} from './auth.model';
 import { Route, Router } from '@angular/router';
 
 @Injectable({
@@ -25,6 +31,9 @@ export class AuthService {
   }
   refreshToken(refreshToken: { refresh: string }): Observable<any> {
     return this.httpClient.post(this.AUTH_UTL + 'token/refresh/', refreshToken);
+  }
+  changePassword(data: ChangePasswordData): Observable<any> {
+    return this.httpClient.put(this.AUTH_UTL + 'password-change/', data);
   }
 
   async refreshTokens(): Promise<boolean> {

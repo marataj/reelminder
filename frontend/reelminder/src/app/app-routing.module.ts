@@ -13,6 +13,7 @@ import {
   isAuthenticated,
   isNotAuthenticated,
 } from './authentication/auth-guard';
+import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -65,9 +66,19 @@ const routes: Routes = [
   },
 
   {
-    path: 'auth/auth',
-    component: AuthenticateComponent,
-    canActivate: [isNotAuthenticated],
+    path: 'auth',
+    children: [
+      {
+        path: 'auth',
+        component: AuthenticateComponent,
+        canActivate: [isNotAuthenticated],
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent,
+        canActivate: [isAuthenticated],
+      },
+    ],
   },
 ];
 

@@ -1,4 +1,4 @@
-export type BodyIcone = 'created' | 'question' | 'info' | 'stop';
+export type BodyIcone = 'created' | 'question' | 'info' | 'stop' | 'check';
 export type ButtonIcone = 'play' | 'openGroup' | 'delete' | 'confirm';
 
 export interface ModalModel {

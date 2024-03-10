@@ -13,6 +13,7 @@ let BODY_ICONES = {
   question: `<i class="bi bi-question-circle"></i>`,
   info: `<i class="bi bi-info-circle"></i>`,
   stop: `<i class="bi bi-exclamation-triangle"></i>`,
+  check: `<i class="bi bi-check-circle"></i>`,
 };
 
 let BUTTON_ICONES = {

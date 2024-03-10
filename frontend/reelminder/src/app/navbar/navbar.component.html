@@ -27,13 +27,28 @@
         *ngIf="!isAuthenticated"
         >Sign in</a
       >
-      <a
-        class="nav-item nav-link mr-auto"
-        routerLink="#"
-        *ngIf="isAuthenticated"
-        (click)="onLogout()"
-        >Logout ({{ username }})</a
-      >
+      <div class="nav-item dropdown" *ngIf="isAuthenticated">
+        <a
+          class="nav-link dropdown-toggle"
+          id="navbarDropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          href="#"
+        >
+          <i class="bi bi-person-circle"></i> {{ username }}
+        </a>
+        <div
+          class="dropdown-menu"
+          href="#"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <a class="dropdown-item" href="#" routerLink="auth/change-password"
+            >Change password</a
+          >
+          <a class="dropdown-item" href="#" (click)="onLogout()">Logout</a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

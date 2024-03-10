@@ -23,9 +23,9 @@ class RegisterView(generics.CreateAPIView):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def chanegPassword(request):
-    old_password = request.data.pop("old_password")
-    new_password = request.data.pop("new_password")
-    new_password2 = request.data.pop("new_password2")
+    old_password = request.data.pop("old")
+    new_password = request.data.pop("new")
+    new_password2 = request.data.pop("new2")
     if new_password != new_password2:
         return Response(status=status.HTTP_400_BAD_REQUEST)
     user: User = request.user
