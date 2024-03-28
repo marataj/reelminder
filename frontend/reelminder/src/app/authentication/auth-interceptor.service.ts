@@ -20,8 +20,11 @@ export class AuthInterceptorService implements HttpInterceptor {
     return this.authService.user.pipe(
       take(1),
       exhaustMap((user) => {
+        if (req.url.search('auth/register/') != -1) {
+          return next.handle(req);
+        }
         let token = user ? user.accessToken : '';
-
+        console.log(req);
         const modifiedReq = req.clone({
           setHeaders: { Authorization: `Bearer ${token}` },
         });
