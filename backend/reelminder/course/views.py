@@ -15,8 +15,16 @@ class CourseCreate(generics.ListCreateAPIView):
     Endpoint for creating new courses.
 
     """
-    queryset = Course.objects.all()
+    def get_queryset(self):
+        """
+        Method prepares queryset for further processing. 
+
+        """
+        return Course.objects.filter(author=self.request.user.id)
+    
     serializer_class = CourseSerializer
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 #  TODO: check how to edit generics to achieve this
 @permission_classes([IsAuthenticated])
@@ -26,7 +34,7 @@ class CourseByGroup(views.APIView):
 
     """
     def get(self, request, group_id, format=None):
-        queryset = Course.objects.filter(group__id=group_id)
+        queryset = Course.objects.filter(group__id=group_id, author=self.request.user.id)
         
         serializer = CourseSerializer(queryset, many=True)
         return Response(serializer.data)
@@ -37,7 +45,13 @@ class CourseDetails(generics.RetrieveUpdateDestroyAPIView):
     Endpoint for retrieving, updating and deleting courses.
 
     """
-    queryset = Course.objects.all()
+    def get_queryset(self):
+        """
+        Method prepares queryset for further processing.
+
+        """
+        return Course.objects.filter(author=self.request.user.id)
+    
     serializer_class = CourseSerializer
 
 

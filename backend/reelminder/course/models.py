@@ -1,7 +1,8 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
 # Create your models here.
 
+UserModel = get_user_model()
 
 class Label(models.Model):
     """
@@ -35,7 +36,7 @@ class Course(models.Model):
     creation_date = models.DateTimeField()
     labels = models.ManyToManyField(Label, blank=True)
     is_public = models.BooleanField()
-    author = models.CharField(max_length=50)
+    author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     progress_sec = models.PositiveIntegerField()
     group = models.ForeignKey(Group, on_delete = models.SET_NULL, blank=True, null=True)
 

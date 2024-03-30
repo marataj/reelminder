@@ -58,7 +58,6 @@ export class AddEditCourseComponent implements OnInit {
   courseFormSubmit() {
     let course_title = this.courseForm.form.value.course_title;
     let course_description = this.courseForm.form.value.course_description;
-    let course_author = this.courseForm.form.value.course_author;
     let course_video_link = this.courseForm.form.value.course_video_link;
     let group = this.defaultGroup
       ? this.defaultGroup.id
@@ -68,7 +67,6 @@ export class AddEditCourseComponent implements OnInit {
     let course = {
       title: course_title,
       description: course_description,
-      author: course_author,
       movie_id: course_video_link.split('v=')[1].substring(0, 11),
       creation_date: this.edited_course
         ? this.edited_course.creation_date

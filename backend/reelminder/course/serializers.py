@@ -6,7 +6,7 @@ class CourseSerializer(serializers.ModelSerializer):
     group = serializers.PrimaryKeyRelatedField(read_only=False, queryset = Group.objects.all(), allow_null=True)
     class Meta:
         model = Course
-        fields = '__all__'
+        exclude = ('author',)
 
 
 class LabelSerializer(serializers.ModelSerializer):
