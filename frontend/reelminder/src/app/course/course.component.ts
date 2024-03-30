@@ -115,7 +115,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
       content: noteContent,
       time_s: video_time_s,
     };
-    this.shared.createNote(this.course.id, note).subscribe((res) => {
+    this.shared.createNote(note).subscribe((res) => {
       this.getNotes();
     });
   }

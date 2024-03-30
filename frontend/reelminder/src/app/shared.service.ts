@@ -38,20 +38,17 @@ export class SharedService {
   }
 
   getNotesListByCourseId(course_id: number): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.APIUrl + '/note/' + course_id + '/');
+    return this.httpClient.get<any[]>(
+      this.APIUrl + '/note/list/' + course_id + '/'
+    );
   }
 
-  createNote(course_id: number, note: any): Observable<any[]> {
-    return this.httpClient.post<any[]>(
-      this.APIUrl + '/note/' + course_id + '/',
-      note
-    );
+  createNote(note: any): Observable<any[]> {
+    return this.httpClient.post<any[]>(this.APIUrl + '/note/', note);
   }
 
   deleteNote(id: number): Observable<any[]> {
-    return this.httpClient.delete<any[]>(
-      this.APIUrl + '/note/handle/' + id + '/'
-    );
+    return this.httpClient.delete<any[]>(this.APIUrl + '/note/' + id + '/');
   }
 
   getGroupList(): Observable<any[]> {

@@ -64,33 +64,32 @@ class Label(generics.ListCreateAPIView):
     queryset = Label.objects.all()
     serializer_class = LabelSerializer
 
-#  TODO: Refactor - remove course-id query param (this info is already in the body of the request!)
-@permission_classes([IsAuthenticated])
-class NoteView(views.APIView):
 
+@permission_classes([IsAuthenticated])
+class NoteList(views.APIView):
     def get(self, request, course_id, format=None):
         queryset = Note.objects.filter(course__id=course_id, author=request.user.id)
         serializer = NoteSerializer(queryset, many=True)
         return Response(serializer.data)
-    
-    def post(self, request, course_id, format=None):
-        if not Course.objects.filter(id=course_id, author=request.user.id):
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-        serializer = NoteSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(author=request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#  TODO: Refactor above will probably allow reducing this view/ separate url
 @permission_classes([IsAuthenticated])
-class NoteHandler(generics.DestroyAPIView, generics.UpdateAPIView):
+class NoteView(generics.DestroyAPIView, generics.UpdateAPIView, generics.CreateAPIView):
     def get_queryset(self):
         """
         Method prepares queryset for further processing.
 
         """
         return Note.objects.filter(author=self.request.user.id)
+    
+    def perform_create(self, serializer):
+        """
+        Method responsible for custom shape of record creation.
+
+        """
+       
+        if not Course.objects.filter(id=self.request.data['course'], author=self.request.user.id).first():
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        serializer.save(author=self.request.user)
     
     serializer_class = NoteSerializer
 
