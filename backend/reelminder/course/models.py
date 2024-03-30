@@ -32,8 +32,7 @@ class Course(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     movie_id = models.CharField(max_length=50)
-    # TODO: make creation_date a self generated field
-    creation_date = models.DateTimeField()
+    creation_date = models.DateTimeField(auto_now_add=True)
     labels = models.ManyToManyField(Label, blank=True)
     is_public = models.BooleanField()
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)

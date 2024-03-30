@@ -62,15 +62,11 @@ export class AddEditCourseComponent implements OnInit {
     let group = this.defaultGroup
       ? this.defaultGroup.id
       : this.courseForm.form.value.assigned_group;
-    let creation_date = new Date();
 
     let course = {
       title: course_title,
       description: course_description,
       movie_id: course_video_link.split('v=')[1].substring(0, 11),
-      creation_date: this.edited_course
-        ? this.edited_course.creation_date
-        : creation_date,
       is_public: true,
       progress_sec: this.edited_course ? this.edited_course.progress_sec : 0,
       group: group,
