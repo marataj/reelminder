@@ -66,7 +66,6 @@ export class AddEditGroupComponent implements OnInit {
         title: this.groupForm.form.value.group_title,
         description: this.groupForm.form.value.group_description,
         is_public: true,
-        author: this.groupForm.form.value.group_author,
       },
       picked_courses: this.pickedCourses,
     };

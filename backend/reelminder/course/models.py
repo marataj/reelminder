@@ -20,7 +20,7 @@ class Group(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     is_public = models.BooleanField()
-    author = models.CharField(max_length=50)
+    author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 
 # TODO: Add percentage progress
 class Course(models.Model):
@@ -48,4 +48,5 @@ class Note(models.Model):
     course = models.ForeignKey(Course, on_delete = models.CASCADE)
     content = models.CharField(max_length=1000)
     time_s = models.PositiveIntegerField()
+    author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 

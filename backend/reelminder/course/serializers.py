@@ -18,10 +18,10 @@ class NoteSerializer(serializers.ModelSerializer):
     course = serializers.PrimaryKeyRelatedField(read_only=False, queryset = Course.objects.all())
     class Meta:
         model = Note
-        fields = '__all__'
+        exclude = ('author',)
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = '__all__'
+        exclude = ('author',)
 

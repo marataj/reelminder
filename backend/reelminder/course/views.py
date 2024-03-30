@@ -69,21 +69,29 @@ class Label(generics.ListCreateAPIView):
 class NoteView(views.APIView):
 
     def get(self, request, course_id, format=None):
-        queryset = Note.objects.filter(course__id=course_id)
+        queryset = Note.objects.filter(course__id=course_id, author=request.user.id)
         serializer = NoteSerializer(queryset, many=True)
         return Response(serializer.data)
     
     def post(self, request, course_id, format=None):
+        if not Course.objects.filter(id=course_id, author=request.user.id):
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
         serializer = NoteSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(author=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 #  TODO: Refactor above will probably allow reducing this view/ separate url
 @permission_classes([IsAuthenticated])
 class NoteHandler(generics.DestroyAPIView, generics.UpdateAPIView):
-    queryset = Note.objects.all()
+    def get_queryset(self):
+        """
+        Method prepares queryset for further processing.
+
+        """
+        return Note.objects.filter(author=self.request.user.id)
+    
     serializer_class = NoteSerializer
 
 @permission_classes([IsAuthenticated])
@@ -95,9 +103,9 @@ class GroupCreate(views.APIView):
     def post(self, request, format=None):
         serializer = GroupSerializer(data=request.data["group"])
         if serializer.is_valid():
-            obj=serializer.save()
+            obj=serializer.save(author=request.user)
 
-            Course.objects.filter(id__in=request.data["picked_courses"]).update(group=obj.id)
+            Course.objects.filter(id__in=request.data["picked_courses"], author=request.user.id).update(group=obj.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -108,12 +116,12 @@ class GroupUpdate(views.APIView):
 
     """
     def patch(self, request, pk,  format=None):
-        instance = Group.objects.filter(pk=pk).first()
+        instance = Group.objects.filter(pk=pk, author=request.user.id).first()
         serializer = GroupSerializer(instance, data=request.data["group"])
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(author=request.user)
             Course.objects.filter(group=pk).update(group=None)
-            Course.objects.filter(id__in=request.data["picked_courses"]).update(group=pk)
+            Course.objects.filter(id__in=request.data["picked_courses"], author=request.user.id).update(group=pk)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -123,7 +131,13 @@ class GroupList(generics.ListAPIView):
     Endpoint for creating new courses.
 
     """
-    queryset = Group.objects.all()
+    def get_queryset(self):
+        """
+        Method prepares queryset for further processing.
+
+        """
+        return Group.objects.filter(author=self.request.user.id)
+    
     serializer_class = GroupSerializer
 
 #  TODO: check docstrings
@@ -133,7 +147,13 @@ class GroupDetails(generics.RetrieveDestroyAPIView):
     Endpoint for retrieving, updating and deleting courses.
 
     """
-    queryset = Group.objects.all()
+    def get_queryset(self):
+        """
+        Method prepares queryset for further processing.
+
+        """
+        return Group.objects.filter(author=self.request.user.id)
+    
     serializer_class = GroupSerializer
         
 @api_view(['GET'])
