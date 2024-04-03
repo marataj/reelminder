@@ -60,6 +60,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.update_time();
     this.player.destroy();
     if (this.sub) this.sub.unsubscribe();
   }
@@ -100,7 +101,9 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onPlayerReady(event) {}
+  onPlayerReady(event) {
+    this.player.seekTo(this.course.progress_sec, true);
+  }
 
   onPlayerStateChange(event) {}
 
@@ -144,6 +147,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setVideoTime(event: { time_s: number }) {
     this.player.seekTo(event.time_s, true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   deleteCourse() {
@@ -173,5 +177,11 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
           this.ngOnInit();
         }, 500);
       });
+  }
+
+  update_time() {
+    let current_time = Math.round(this.player.getCurrentTime());
+    this.course.progress_sec = current_time;
+    this.shared.updateCourse(this.course.id, this.course).subscribe();
   }
 }
