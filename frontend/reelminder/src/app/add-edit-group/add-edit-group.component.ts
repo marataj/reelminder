@@ -9,6 +9,7 @@ import {
 import { SharedService } from '../shared.service';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { createErrorMessage } from '../shared/utils';
 
 @Component({
   selector: 'app-add-edit-group',
@@ -30,7 +31,7 @@ export class AddEditGroupComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {}
-
+  errors: string = '';
   ngOnInit(): void {
     let groupId = this.params['id'];
     if (groupId) {
@@ -61,6 +62,7 @@ export class AddEditGroupComponent implements OnInit {
   }
 
   groupFormSubmit() {
+    this.errors = '';
     let formData = {
       group: {
         title: this.groupForm.form.value.group_title,
@@ -71,17 +73,25 @@ export class AddEditGroupComponent implements OnInit {
     };
 
     if (this.edited_group) {
-      this.shared
-        .updateGroup(this.edited_group.id, formData)
-        .subscribe((res) => {
+      this.shared.updateGroup(this.edited_group.id, formData).subscribe(
+        (res) => {
           this.confirmEvent.emit();
           this.closeMeEvent.emit();
-        });
+        },
+        (e) => {
+          this.errors = createErrorMessage(e);
+        }
+      );
     } else {
-      this.shared.createGroup(formData).subscribe((res) => {
-        this.confirmEvent.emit({ group: res });
-        this.closeMeEvent.emit();
-      });
+      this.shared.createGroup(formData).subscribe(
+        (res) => {
+          this.confirmEvent.emit({ group: res });
+          this.closeMeEvent.emit();
+        },
+        (e) => {
+          this.errors = createErrorMessage(e);
+        }
+      );
     }
   }
 }

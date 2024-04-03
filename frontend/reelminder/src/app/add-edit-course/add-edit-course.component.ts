@@ -11,7 +11,7 @@ import {
 import { NgForm } from '@angular/forms';
 import { SharedService } from '../shared.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { share } from 'rxjs';
+import { createErrorMessage } from '../shared/utils';
 
 @Component({
   selector: 'app-add-edit-course',
@@ -29,6 +29,7 @@ export class AddEditCourseComponent implements OnInit {
   edited_course: any;
   defaultGroup: any;
   meta: any;
+  errors: string = '';
   @Output() closeMeEvent = new EventEmitter();
   @Output() confirmEvent = new EventEmitter();
   @Input() params: any;
@@ -56,6 +57,7 @@ export class AddEditCourseComponent implements OnInit {
   }
 
   courseFormSubmit() {
+    this.errors = '';
     let course_title = this.courseForm.form.value.course_title;
     let course_description = this.courseForm.form.value.course_description;
     let course_video_link = this.courseForm.form.value.course_video_link;
@@ -72,17 +74,25 @@ export class AddEditCourseComponent implements OnInit {
       group: group,
     };
     if (this.edited_course) {
-      this.shared
-        .updateCourse(this.edited_course.id, course)
-        .subscribe((res) => {
+      this.shared.updateCourse(this.edited_course.id, course).subscribe(
+        (res) => {
           this.confirmEvent.emit();
           this.closeMeEvent.emit();
-        });
+        },
+        (e) => {
+          this.errors = createErrorMessage(e);
+        }
+      );
     } else {
-      this.shared.createCourse(course).subscribe((res) => {
-        this.confirmEvent.emit({ course: res });
-        this.closeMeEvent.emit();
-      });
+      this.shared.createCourse(course).subscribe(
+        (res) => {
+          this.confirmEvent.emit({ course: res });
+          this.closeMeEvent.emit();
+        },
+        (e) => {
+          this.errors = createErrorMessage(e);
+        }
+      );
     }
   }
 

@@ -42,6 +42,9 @@
                 [ngModel]="edited_group ? edited_group.description : ''"
                 name="group_description"
               />
+              <div style="color: darkred; white-space: pre-line">
+                {{ errors }}
+              </div>
               <button type="submit" class="btn btn-light mt-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

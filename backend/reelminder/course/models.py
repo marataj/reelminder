@@ -45,7 +45,7 @@ class Note(models.Model):
 
     """
     course = models.ForeignKey(Course, on_delete = models.CASCADE)
-    content = models.CharField(max_length=1000)
+    content = models.CharField(max_length=2000)
     time_s = models.PositiveIntegerField()
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 

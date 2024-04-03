@@ -14,6 +14,7 @@ import { ModalService } from '../shared/modal.service';
 import { Subscription } from 'rxjs';
 import { AddEditCourseComponent } from '../add-edit-course/add-edit-course.component';
 import { ModalComponent } from '../modal/modal.component';
+import { ModalModel } from '../modal/modal.model';
 
 @Component({
   selector: 'app-course',
@@ -115,9 +116,24 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
       content: noteContent,
       time_s: video_time_s,
     };
-    this.shared.createNote(note).subscribe((res) => {
-      this.getNotes();
-    });
+    this.shared.createNote(note).subscribe(
+      (res) => {
+        this.getNotes();
+      },
+      (err) => {
+        if (err.error['content'][0].includes('no more than')) {
+          let params: ModalModel = {
+            title: `Note is too long !`,
+            body_icone: 'stop',
+            button_icone: `confirm`,
+            timeout_ms: 2000,
+          };
+          this.sub = this.modalService
+            .openModal(this.entry, params, ModalComponent)
+            .subscribe((v) => {});
+        }
+      }
+    );
   }
 
   getNotes() {
