@@ -48,6 +48,7 @@ export class AuthService {
       _refreshToken: string;
       username: string;
       email: string;
+      _lifetime_s: number;
       _expirationDate: Date;
     } = JSON.parse(localStorage.getItem('userData'));
 
@@ -61,6 +62,7 @@ export class AuthService {
         tokenPair.refresh,
         userData.username,
         userData.email,
+        userData._lifetime_s,
         new Date(userData._expirationDate)
       );
       if (loadedUser.is_valid) {
@@ -84,6 +86,7 @@ export class AuthService {
       _refreshToken: string;
       username: string;
       email: string;
+      _lifetime_s: number;
       _expirationDate: Date;
     } = JSON.parse(localStorage.getItem('userData'));
     if (!userData) {
@@ -94,7 +97,8 @@ export class AuthService {
       userData._refreshToken,
       userData.username,
       userData.email,
-      new Date(userData._expirationDate)
+      userData._lifetime_s,
+      new Date(new Date().getTime() + userData._lifetime_s * 1000)
     );
 
     if (loadedUser.is_valid) {
@@ -103,6 +107,7 @@ export class AuthService {
         new Date(userData._expirationDate).getTime() - new Date().getTime();
       this.autoLogout(remainingTokenExpirationDuration);
     } else {
+      console.log('Calling from autologin');
       this.refreshTokens();
     }
   }
@@ -112,6 +117,7 @@ export class AuthService {
      * Method responsible for automatically logging out the user, after reaching the timeout.
      */
     this.tokenExpirationTimer = setTimeout(() => {
+      console.log('Calling from autologout');
       if (this.refreshTokens()) {
         return;
       }
@@ -142,6 +148,7 @@ export class AuthService {
       authResponse.refresh,
       authResponse.username,
       authResponse.email,
+      authResponse.access_lifetime_s,
       new Date(new Date().getTime() + authResponse.access_lifetime_s * 1000)
     );
     this.user.next(user);

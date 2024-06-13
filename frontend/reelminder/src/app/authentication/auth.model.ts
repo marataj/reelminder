@@ -31,6 +31,7 @@ export class User {
    * @param _refreshToken
    * @param username
    * @param email
+   * @param _lifetime_s
    * @param _expirationDate
    */
 
@@ -39,6 +40,7 @@ export class User {
     private _refreshToken: string,
     public username: string,
     public email: string,
+    private _lifetime_s: number,
     private _expirationDate: Date
   ) {}
 

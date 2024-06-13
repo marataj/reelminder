@@ -4,6 +4,8 @@ import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { ModalModel } from '../../modal/modal.model';
 
+import { createErrorMessage } from '../../shared/utils';
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -32,11 +34,8 @@ export class RegistrationComponent implements OnInit {
         });
       },
       (e) => {
-        const keys = Object.keys(e.error);
-        let err_msg = '';
-        keys.forEach((k) => {
-          err_msg += `${k}: ${e.error[k][0]}\n`;
-        });
+        
+        let err_msg = createErrorMessage(e);
         if (e.statusText != 'Bad Request') {
           err_msg = e.name;
         }
