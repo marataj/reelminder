@@ -9,6 +9,7 @@ import {
   User,
 } from './auth.model';
 import { Route, Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class AuthService {
    * Service responsible for handling authentication.
    */
   user = new BehaviorSubject<User>(null);
-  readonly AUTH_UTL: string = 'http://127.0.0.1:8000/auth/';
+  readonly AUTH_UTL: string = environment.API_URL + '/auth/';
   private tokenExpirationTimer: any;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
