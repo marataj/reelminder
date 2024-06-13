@@ -20,6 +20,6 @@ from course.urls import urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include(urlpatterns)),
-    path("auth/", include("users.urls"))
+    path("api/", include(urlpatterns)),
+    path("api/auth/", include("users.urls"))
 ]
