@@ -1,0 +1,18 @@
+services:
+  reelminder_backend:
+    container_name: reelminder_backend
+    env_file:
+      - .env
+    build: .
+    image: reelminderbackendapp:v1
+    ports:
+      - 8000:8000
+    expose:
+      - 8000
+    networks:
+      - internalnet
+
+networks:
+  internalnet:
+    driver: bridge
+    
