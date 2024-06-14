@@ -1,10 +1,8 @@
-# docker-compose file that builds new images
+# docker-compose file using images from the remote registry
 services:
   reelminder_frontend:
     container_name: reelminder_frontend
-    build:
-      context: ./frontend/reelminder
-    image: reelminder_frontend:v1
+    image: ghcr.io/marataj/reelminder-frontend:v1
     ports: 
       - 80:80
     expose:
@@ -16,9 +14,7 @@ services:
     container_name: reelminder_backend
     env_file:
       - ./backend/reelminder/.env
-    build: 
-      context: ./backend/reelminder
-    image: reelminder_backend:v1
+    image: ghcr.io/marataj/reelminder-backend:v1
     ports:
       - 8000:8000
     expose:
