@@ -2,6 +2,7 @@ import {
   AfterContentInit,
   AfterViewInit,
   Component,
+  ElementRef,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -35,7 +36,8 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
     private shared: SharedService,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit() {
@@ -82,7 +84,18 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
     /**
      * Function responsible for initializing youtube player.
      */
+    const playerCol =
+      this.elementRef.nativeElement.querySelector('#player-col');
+
+    const computedStyle = window.getComputedStyle(playerCol);
+    let width = Number(computedStyle.width.replace('px', ''));
+    width =
+      width -
+      Number(computedStyle.paddingLeft.replace('px', '')) -
+      Number(computedStyle.paddingRight.replace('px', ''));
     this.player = new window['YT'].Player('player', {
+      height: width / 2,
+      width: width,
       videoId: this.video,
       playerVars: {
         autoplay: 1,
