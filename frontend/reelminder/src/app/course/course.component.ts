@@ -135,6 +135,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
     this.shared.createNote(note).subscribe(
       (res) => {
         this.getNotes();
+        this.editor.html.set('');
       },
       (err) => {
         if (err.error['content'][0].includes('no more than')) {
@@ -155,6 +156,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   getNotes() {
     this.shared.getNotesListByCourseId(this.course.id).subscribe((res) => {
       this.notes = res;
+      this.notes.reverse();
     });
   }
 
