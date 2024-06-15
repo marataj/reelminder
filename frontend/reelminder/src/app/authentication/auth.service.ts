@@ -64,13 +64,12 @@ export class AuthService {
         userData.username,
         userData.email,
         userData._lifetime_s,
-        new Date(userData._expirationDate)
+        new Date(new Date().getTime() + userData._lifetime_s * 1000)
       );
       if (loadedUser.is_valid) {
         this.user.next(loadedUser);
         localStorage.setItem('userData', JSON.stringify(loadedUser));
-        let remainingTokenExpirationDuration =
-          new Date(userData._expirationDate).getTime() - new Date().getTime();
+        let remainingTokenExpirationDuration = userData._lifetime_s * 1000;
         this.autoLogout(remainingTokenExpirationDuration);
         return true;
       }
@@ -108,7 +107,6 @@ export class AuthService {
         new Date(userData._expirationDate).getTime() - new Date().getTime();
       this.autoLogout(remainingTokenExpirationDuration);
     } else {
-      console.log('Calling from autologin');
       this.refreshTokens();
     }
   }
@@ -118,7 +116,6 @@ export class AuthService {
      * Method responsible for automatically logging out the user, after reaching the timeout.
      */
     this.tokenExpirationTimer = setTimeout(() => {
-      console.log('Calling from autologout');
       if (this.refreshTokens()) {
         return;
       }
