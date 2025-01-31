@@ -1,6 +1,6 @@
 # docker-compose file that builds new images
 services:
-  reelminder_posstgres:
+  reelminder_postgres:
     image: postgres
     container_name: reelminder_postgres
     environment:
