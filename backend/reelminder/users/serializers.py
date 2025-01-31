@@ -15,7 +15,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
         token = self.get_token(self.user)
-        data["access_lifetime_s"] = 10 #str(token.access_token.lifetime.seconds)
+        data["access_lifetime_s"] = str(token.access_token.lifetime.seconds)
         data['username'] = self.user.username
         data['email'] = self.user.email
 
