@@ -17,6 +17,8 @@ import { AddEditCourseComponent } from '../add-edit-course/add-edit-course.compo
 import { ModalComponent } from '../modal/modal.component';
 import { ModalModel } from '../modal/modal.model';
 
+declare var $: any; // Import jQuery
+
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -29,6 +31,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   public editor: any;
   public notes: any;
   public group: any = null;
+
   @ViewChild('modal', { read: ViewContainerRef })
   entry!: ViewContainerRef;
   sub!: Subscription;
@@ -58,7 +61,15 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     // @ts-ignore
-    this.editor = new FroalaEditor('#editor');
+    this.editor = $('#summernote');
+    this.editor.summernote({
+      placeholder: 'Type here...',
+      height: 200,
+      toolbar: [
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough']],
+      ],
+    });
   }
 
   ngOnDestroy(): void {
@@ -125,7 +136,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addNote() {
-    let noteContent = this.editor.html.get();
+    let noteContent = this.editor.summernote('code');
     let video_time_s = Math.round(this.player.getCurrentTime());
     let note = {
       course: this.course.id,
@@ -135,7 +146,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
     this.shared.createNote(note).subscribe(
       (res) => {
         this.getNotes();
-        this.editor.html.set('');
+        this.editor.summernote('code', '');
       },
       (err) => {
         if (err.error['content'][0].includes('no more than')) {
