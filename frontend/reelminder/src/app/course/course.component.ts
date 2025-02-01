@@ -56,7 +56,6 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     });
     this.startPlayer();
-    this.player.cueVideoById(this.course.movie_id);
   }
 
   ngAfterViewInit(): void {
@@ -126,7 +125,9 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onPlayerReady(event) {
+    this.player.cueVideoById(this.course.movie_id);
     this.player.seekTo(this.course.progress_sec, true);
+    
   }
 
   onPlayerStateChange(event) {}
