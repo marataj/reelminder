@@ -33,10 +33,9 @@ export class RegistrationComponent implements OnInit {
           timeout_ms: 5000,
         });
       },
-      (e) => {
-        
+      (e) => {       
         let err_msg = createErrorMessage(e);
-        if (e.statusText != 'Bad Request') {
+        if (e.status != 400) {
           err_msg = e.name;
         }
         this.notificationEvent.emit({
