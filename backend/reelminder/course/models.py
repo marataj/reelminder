@@ -18,7 +18,7 @@ class Group(models.Model):
 
     """
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, blank=True)
     is_public = models.BooleanField()
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 
@@ -30,7 +30,7 @@ class Course(models.Model):
     """
     # id is added automatically by django
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, blank=True)
     movie_id = models.CharField(max_length=50)
     creation_date = models.DateTimeField(auto_now_add=True)
     labels = models.ManyToManyField(Label, blank=True)
