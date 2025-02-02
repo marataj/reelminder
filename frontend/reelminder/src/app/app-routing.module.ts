@@ -21,7 +21,11 @@ const routes: Routes = [
     path: 'courses',
     component: CourseListComponent,
     canActivate: [isAuthenticated],
-    children: [{ path: ':groupId', component: CourseListComponent }],
+  },
+  {
+    path: 'courses/:groupId',
+    component: CourseListComponent,
+    canActivate: [isAuthenticated],
   },
   {
     path: 'groups',
