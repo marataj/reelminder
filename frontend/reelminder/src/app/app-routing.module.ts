@@ -14,9 +14,11 @@ import {
   isNotAuthenticated,
 } from './authentication/auth-guard';
 import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'feedback', component: FeedbackComponent },
   {
     path: 'courses',
     component: CourseListComponent,

@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from course.urls import urlpatterns
+from course.urls import urlpatterns as course_urls
+from portal.urls import urlpatterns as portal_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include(urlpatterns)),
-    path("api/auth/", include("users.urls"))
+    path("api/", include(course_urls)),
+    path("api/auth/", include("users.urls")),
+    path("api/portal/", include(portal_urls))
 ]

@@ -23,6 +23,7 @@ import { LoginComponent } from './authentication/login/login.component';
 import { AuthenticateComponent } from './authentication/authenticate/authenticate.component';
 import { AuthInterceptorService } from './authentication/auth-interceptor.service';
 import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ChangePasswordComponent } from './authentication/change-password/change
     LoginComponent,
     AuthenticateComponent,
     ChangePasswordComponent,
+    FeedbackComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,8 @@ body {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   caret-color: transparent;
 }
-input {
+input,
+textarea,
+form {
   caret-color: black !important;
 }

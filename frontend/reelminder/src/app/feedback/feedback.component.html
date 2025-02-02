@@ -1,0 +1,48 @@
+<div #modal></div>
+<div class="container">
+  <form (ngSubmit)="courseFormSubmit()" #f="ngForm" class="p-3">
+    <h3>Leave feedback:</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label for="email" class="form-label">Email*</label>
+        <div class="d-flex align-items-center">
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            required="true"
+            [ngModel]="isAuthenticated ? user_email : ''"
+            [readOnly]="isAuthenticated"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label for="feedback" class="form-label">Feedback</label>
+        <textarea
+          type="text-area"
+          class="form-control"
+          name="feedback"
+          id="feedback"
+          [(ngModel)]="content"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 py-3" style="color: darkred; white-space: pre-line">
+        {{ errors }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 d-flex justify-content-end">
+        <button type="submit" class="btn btn-light border radius">
+          <h2><i class="bi bi-envelope"></i></h2>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

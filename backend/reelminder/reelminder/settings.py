@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     "course",
     "rest_framework",
     'rest_framework_simplejwt.token_blacklist',
-    "users"
+    "users",
+    "portal",
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True

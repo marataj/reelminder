@@ -80,4 +80,8 @@ export class SharedService {
       this.APIUrl + '/yt-vid-metadata/' + video_id
     );
   }
+
+  sendFeedback(val: any): Observable<any> {
+    return this.httpClient.post<any>(this.APIUrl + '/portal/feedback/', val);
+  }
 }
