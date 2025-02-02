@@ -19,6 +19,14 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
+    def perform_create(self, serializer):
+        """
+        Method changing email's letter to lowercase.
+
+        """
+        email = self.request.data.get("email", "")
+        serializer.save(email=email.lower())
+
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
