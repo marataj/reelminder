@@ -68,6 +68,14 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
         ['style', ['bold', 'italic', 'underline', 'clear']],
         ['font', ['strikethrough']],
       ],
+      callbacks: {
+        onKeydown: (event: KeyboardEvent) => {
+          if (event.ctrlKey && event.key === 'Enter') {
+            event.preventDefault();
+            this.addNote();
+          }
+        },
+      },
     });
   }
 
@@ -127,13 +135,20 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   onPlayerReady(event) {
     this.player.cueVideoById(this.course.movie_id);
     this.player.seekTo(this.course.progress_sec, true);
-    
   }
 
   onPlayerStateChange(event) {}
 
   cleanTime() {
     return Math.round(this.player.getCurrentTime());
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    if (event.shiftKey && event.key === 'Enter') {
+      event.preventDefault(); // Zapobiega przejściu do nowej linii w `textarea`
+      console.log('Shift + Enter wciśnięte!');
+      this.addNote();
+    }
   }
 
   addNote() {
