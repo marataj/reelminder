@@ -53,6 +53,10 @@ CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST=("")
 CORS_ALLOW_CREDENTIALS = True
 
+CSRF_TRUSTED_ORIGINS = [
+ "https://reelminder.byst.re"  # replace with a .env setting
+]
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",

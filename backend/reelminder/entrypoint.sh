@@ -1,6 +1,6 @@
 #!/bin/sh
 
-python manage.py makemigrations course
+python manage.py makemigrations course portal
 python manage.py migrate
 
 
