@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       (res) => {
         this.loginForm.reset();
         this.authService.handleAuthentication(res);
-        this.router.navigate(['courses']);
+        this.router.navigate(['']);
       },
       (error) => {
         this.loginForm.reset();

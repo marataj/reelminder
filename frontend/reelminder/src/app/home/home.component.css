@@ -28,4 +28,21 @@
   padding: 20px;
   background-size: cover;
   background-repeat: no-repeat;
+  position: relative;
+}
+
+.feature-text {
+  font-size: 1.5rem !important;
+}
+
+.coming-soon-label {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(161, 30, 30, 0.9);
+  color: white;
+  font-weight: bold;
+  padding: 1rem 1rem;
+  font-size: 2rem;
+  transform: rotate(45deg);
 }

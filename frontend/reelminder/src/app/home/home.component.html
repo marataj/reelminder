@@ -20,15 +20,14 @@
             <strong>Reelminder<i class="bi bi-lightbulb"></i></strong>, the tool
             that is revolutionizing the way you learn from YouTube! Our platform
             allows you to create detailed notes with links to specific moments
-            in videos, which makes learning more effective and organized. Take
-            advantage of the wealth of knowledge available for free and start
-            using it now! Register !
+            in videos, which makes learning more effective and organized.
           </h4>
         </div>
       </div>
       <div
         class="row d-flex justify-content-center mt-5"
         style="margin-top: 5rem"
+        *ngIf="!isAuthenticated"
       >
         <div class="col-md-9">
           <h2 style="text-align: center">
@@ -37,10 +36,23 @@
           </h2>
         </div>
       </div>
-      <div class="row d-flex justify-content-center mt-5 mb-5">
+      <div
+        *ngIf="!isAuthenticated"
+        class="row d-flex justify-content-center mt-5 mb-5"
+      >
         <a routerLink="auth/auth"
           ><button class="btn btn-primary" style="font-size: 200%">
             Sign-up
+          </button></a
+        >
+      </div>
+      <div
+        *ngIf="isAuthenticated"
+        class="row d-flex justify-content-center mt-5 mb-5"
+      >
+        <a routerLink="courses"
+          ><button class="btn btn-primary" style="font-size: 200%">
+            Go to your courses
           </button></a
         >
       </div>
@@ -59,14 +71,14 @@
     <div class="col-md-8 d-flex align-items-center">
       <div class="grid">
         <div class="row d-flex justify-content-center">
-          <h1 style="text-align: center">Make notes with video references</h1>
+          <h2 style="text-align: center">Make notes with video references</h2>
         </div>
         <div class="row">
-          <h2 style="text-align: center">
+          <p class="feature-text" style="text-align: center">
             Create notes with precise references to the certain moments in the
             movie, which allows you to go back to the direct source of your note
             !
-          </h2>
+          </p>
         </div>
       </div>
     </div>
@@ -82,13 +94,13 @@
     <div class="col-md-8 d-flex align-items-center">
       <div class="grid">
         <div class="row d-flex justify-content-center">
-          <h1 style="text-align: center">Organize your learning path</h1>
+          <h2 style="text-align: center">Organize your learning path</h2>
         </div>
         <div class="row">
-          <h2 style="text-align: center">
+          <p class="feature-text" style="text-align: center">
             Group your courses viedeo based on youtube playlist, topics or
             channels. Everything in one place, always accessible!
-          </h2>
+          </p>
         </div>
       </div>
     </div>
@@ -104,17 +116,94 @@
     <div class="col-md-8 d-flex align-items-center">
       <div class="grid">
         <div class="row d-flex justify-content-center">
-          <h1 style="text-align: center">
+          <h2 style="text-align: center">
             Squeeze 100% from the knowledge available for free!
-          </h1>
+          </h2>
         </div>
         <div class="row">
-          <h2 style="text-align: center">
+          <p class="feature-text" style="text-align: center">
             Act with the YouTube tutorials as you would with popular course
             services. Now you can easily and interactively save observations and
             progress from courses, allowing you to easily return to previously
             studied materials.
-          </h2>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row bg-light mt-5">
+    <div class="col-md-4 d-flex justify-content-center position-relative">
+      <div
+        class="feature-icon"
+        style="background-image: url('../../assets/img/pdf.jpg')"
+      ></div>
+      <!-- Label Coming Soon -->
+      <label class="coming-soon-label">Coming Soon</label>
+    </div>
+    <div class="col-md-8 d-flex align-items-center">
+      <div class="grid">
+        <div class="row d-flex justify-content-center">
+          <h2 style="text-align: center">PDF notes generator</h2>
+        </div>
+        <div class="row">
+          <p class="feature-text" style="text-align: center">
+            The automatic PDF generation feature allows you to quickly and
+            easily convert course notes into a downloadable, shareable, and
+            printable PDF file. Perfect for keeping important information
+            organized and easily accessible in one document. Worried about
+            losing the context of your notes? Don't worry, each note links
+            directly to the moment in the course where it was created!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row bg-light mt-5">
+    <div class="col-md-4 d-flex justify-content-center position-relative">
+      <div
+        class="feature-icon"
+        style="background-image: url('../../assets/img/share.jpg')"
+      ></div>
+      <!-- Label Coming Soon -->
+      <label class="coming-soon-label">Coming Soon</label>
+    </div>
+    <div class="col-md-8 d-flex align-items-center">
+      <div class="grid">
+        <div class="row d-flex justify-content-center">
+          <h2 style="text-align: center">Knowledge sharing</h2>
+        </div>
+        <div class="row">
+          <p class="feature-text" style="text-align: center">
+            Share your courses and notes with other users, allowing everyone to
+            learn and benefit from each other's insights.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row bg-light mt-5">
+    <div class="col-md-4 d-flex justify-content-center position-relative">
+      <div
+        class="feature-icon"
+        style="background-image: url('../../assets/img/training.jpg')"
+      ></div>
+      <!-- Label Coming Soon -->
+      <label class="coming-soon-label">Coming Soon</label>
+    </div>
+    <div class="col-md-8 d-flex align-items-center">
+      <div class="grid">
+        <div class="row d-flex justify-content-center">
+          <h2 style="text-align: center">Study in group!</h2>
+        </div>
+        <div class="row">
+          <p class="feature-text" style="text-align: center">
+            The feature allows learners to collaborate in a shared virtual room,
+            complete with voice chat, making online course study more
+            interactive and engaging.
+          </p>
         </div>
       </div>
     </div>
