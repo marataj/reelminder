@@ -5,7 +5,6 @@ body {
   caret-color: transparent;
 }
 input,
-textarea,
-form {
+textarea {
   caret-color: black !important;
 }
