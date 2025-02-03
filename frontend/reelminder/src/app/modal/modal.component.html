@@ -10,6 +10,7 @@
         <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
         <button
           type="button"
+          style="margin-right: 0.3rem"
           class="close"
           data-dismiss="modal"
           aria-label="Close"
@@ -33,7 +34,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <div class="col-md-2">
+        <div class="col-md-2" style="margin-right: 1rem">
           <button class="btn btn-light" (click)="confirm()">
             <h1
               [innerHTML]="button_icone"
