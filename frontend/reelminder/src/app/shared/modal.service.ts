@@ -14,6 +14,9 @@ export class ModalService {
   constructor() {}
 
   openModal(entry: ViewContainerRef, params: object, component: any) {
+    if (this.modal) {
+      this.closeModal();
+    }
     this.componentRef = entry.createComponent(component);
     this.componentRef.instance.params = params;
     this.componentRef.instance.closeMeEvent.subscribe(() => this.closeModal());
