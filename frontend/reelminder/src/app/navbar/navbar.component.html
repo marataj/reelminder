@@ -19,10 +19,10 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav mr-auto">
       <a class="nav-item nav-link" routerLink="courses/" *ngIf="isAuthenticated"
-        >My courses <span class="sr-only">(current)</span></a
+        >My Courses <span class="sr-only">(current)</span></a
       >
       <a class="nav-item nav-link" routerLink="groups" *ngIf="isAuthenticated"
-        >My groups <span class="sr-only">(current)</span></a
+        >My Groups <span class="sr-only">(current)</span></a
       >
     </div>
     <div class="navbar-nav">
@@ -30,7 +30,7 @@
         class="nav-item nav-link"
         routerLink="auth/auth"
         *ngIf="!isAuthenticated"
-        >Sign in</a
+        >Sign In</a
       >
       <div class="nav-item dropdown" *ngIf="isAuthenticated">
         <a

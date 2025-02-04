@@ -3,12 +3,13 @@
 <div class="container py-3">
   <div class="row" *ngIf="!group; else specGroup">
     <div class="col-md-6">
-      <h2>All courses</h2>
+      <h2>My courses</h2>
     </div>
     <div class="col-md-6 d-flex justify-content-end">
       <button
         class="btn btn-light border radius"
         (click)="createCourseModal({})"
+        title="New Course"
       >
         <h2><i class="bi bi-plus-circle"></i></h2>
       </button>
@@ -17,7 +18,7 @@
   <ng-template #specGroup>
     <div class="row">
       <div class="col-md-6">
-        <h2>Group: {{ group.title }}</h2>
+        <h2><i class="bi bi-collection-play"></i> {{ group.title }}</h2>
       </div>
       <div class="col-md-6 d-flex justify-content-end">
         <button

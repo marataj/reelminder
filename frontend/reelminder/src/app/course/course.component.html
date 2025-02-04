@@ -11,12 +11,17 @@
       >
         <i class="bi bi-collection-play-fill"></i> {{ group.title }}
       </button>
-      <button class="btn btn-light m-1" (click)="deleteCourseModal()">
+      <button
+        class="btn btn-light m-1"
+        (click)="deleteCourseModal()"
+        title="Remove"
+      >
         <i class="bi bi-trash"></i>
       </button>
       <button
         class="btn btn-light m-1"
         (click)="createCourseModal({ id: course.id })"
+        title="Edit"
       >
         <i class="bi bi-pencil-square"></i>
       </button>
@@ -29,7 +34,7 @@
         <textarea id="summernote" class="m-1"></textarea>
       </div>
       <button class="btn btn-dark m-3" (click)="addNote()" title="CTRL + ENTER">
-        <h5><i class="bi bi-plus-circle-fill"></i> add note</h5>
+        <h5><i class="bi bi-plus-circle-fill"></i> New Note</h5>
       </button>
     </div>
   </div>

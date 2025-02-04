@@ -7,16 +7,20 @@
     <h5 class="card-text"><i class="bi bi-diagram-3"></i> {{ video_num }}</h5>
 
     <div class="d-flex justify-content-around">
-      <a href="courses/{{ group.id }}" class="btn btn-light"
+      <a href="courses/{{ group.id }}" class="btn btn-light" title="Open group"
         ><h2><i class="bi bi-collection-play"></i></h2
       ></a>
 
-      <a class="btn btn-light" (click)="deleteGroupeModal()"
-        ><h2><i class="bi bi-trash"></i></h2
-      ></a>
-      <a class="btn btn-light" (click)="createGroupModal({ id: group.id })">
+      <a
+        class="btn btn-light"
+        (click)="createGroupModal({ id: group.id })"
+        title="Edit"
+      >
         <h2><i class="bi bi-pencil-square"></i></h2>
       </a>
+      <a class="btn btn-light" (click)="deleteGroupeModal()" title="Remove"
+        ><h2><i class="bi bi-trash"></i></h2
+      ></a>
     </div>
   </div>
 </div>

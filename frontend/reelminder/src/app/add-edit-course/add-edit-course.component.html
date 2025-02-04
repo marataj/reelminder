@@ -14,15 +14,14 @@
           data-dismiss="modal"
           aria-label="Close"
           (click)="closeMeEvent.emit()"
+          title="Close"
         >
           <h2><i class="bi bi-x-circle"></i></h2>
         </button>
       </div>
 
       <div class="container">
-        <h2 *ngIf="edited_course; else newCourse">
-          EDIT: {{ edited_course.title }}
-        </h2>
+        <h2 *ngIf="edited_course; else newCourse">Edit Course</h2>
         <ng-template #newCourse>
           <h2 *ngIf="defaultGroup">
             New course in {{ defaultGroup.title }} group
@@ -32,7 +31,7 @@
           <div class="row mb-3">
             <div class="col-md-12">
               <label for="course_video_link" class="form-label"
-                >Video link</label
+                >Video Link</label
               >
               <div class="d-flex align-items-center">
                 <input
@@ -84,7 +83,7 @@
                 *ngIf="!defaultGroup"
               >
                 <option [selected] hidden="edited_course.group==undefined">
-                  Assign to the group
+                  Assign to the Group
                 </option>
                 <option value="{{ null }}">Standalone</option>
                 <option
@@ -110,7 +109,7 @@
               {{ errors }}
             </div>
           </div>
-          <div class="row d-flex justify-content-end">
+          <div class="row d-flex justify-content-end" title="Save">
             <button type="submit" class="btn btn-light border radius">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
