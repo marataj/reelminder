@@ -1,0 +1,8 @@
+brand-font {
+  font-family: Horizon !important;
+  color: #ff3131 !important;
+}
+
+.dropdown-toggle {
+  white-space: nowrap;
+}

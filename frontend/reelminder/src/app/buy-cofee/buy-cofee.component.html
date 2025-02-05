@@ -1,0 +1,52 @@
+<div
+  class="modal fade border"
+  id="exampleModal"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-11 align-self-center justify-self-center">
+            <h2>Dear User <i class="bi bi-cup-hot-fill"></i></h2>
+          </div>
+          <div class="col-md-1 align-self-end">
+            <button
+              type="button"
+              class="btn btn-light m-1"
+              data-dismiss="modal"
+              aria-label="Close"
+              (click)="closeMeEvent.emit()"
+              title="Close"
+            >
+              <h2><i class="bi bi-x-circle"></i></h2>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="font-size: 1.5rem">
+            <p>
+              Your contribution helps us grow and improve our project. If you
+              find our platform interesting and useful, you can support us by
+              buying a symbolic coffee through the link below:
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mb-4 d-flex justify-content-center">
+            <a
+              title="https://buycoffee.to/reelminder"
+              target="_blank"
+              href="https://buycoffee.to/reelminder"
+              style="font-size: 1.5rem"
+              (click)="closeMeEvent.emit()"
+              >https://buycoffee.to/reelminder</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
