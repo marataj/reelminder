@@ -71,6 +71,7 @@ export class AddEditCourseComponent implements OnInit {
       movie_id: course_video_link.split('v=')[1].substring(0, 11),
       is_public: true,
       progress_sec: this.edited_course ? this.edited_course.progress_sec : 0,
+      progress_pct: this.edited_course ? this.edited_course.progress_pct : 0,
       group: group,
     };
     if (this.edited_course) {

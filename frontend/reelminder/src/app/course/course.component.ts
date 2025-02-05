@@ -223,7 +223,10 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   update_time() {
     let current_time = Math.round(this.player.getCurrentTime());
+    let duration = Math.round(this.player.getDuration());
+    let progress_pct = Math.round((current_time / duration) * 100);
     this.course.progress_sec = current_time;
+    this.course.progress_pct = progress_pct;
     this.shared.updateCourse(this.course.id, this.course).subscribe();
   }
 }
