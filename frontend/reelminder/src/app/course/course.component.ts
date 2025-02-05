@@ -119,7 +119,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
         autoplay: 1,
         modestbranding: 1,
         controls: 1,
-        disablekb: 1,
+        disablekb: 0,
         rel: 0,
         showinfo: 0,
         fs: 0,
