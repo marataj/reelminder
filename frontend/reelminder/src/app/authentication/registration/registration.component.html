@@ -1,11 +1,7 @@
 <div class="container">
   <div class="row d-flex justify-content-center">
-    <div class="col-md-6 p-5">
-      <form
-        [formGroup]="registerForm"
-        (ngSubmit)="registerUser()"
-        (keydown.enter)="$event.preventDefault()"
-      >
+    <div class="col-md-6 p-2">
+      <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
         <label class="form-label m-1" for="username">Username</label>
         <input
           type="text"
@@ -32,7 +28,7 @@
           class="form-control m-1"
           formControlName="password2"
         />
-        <button class="btn btn-primary m-2">Register</button>
+        <button class="btn btn-dark m-2">Register</button>
       </form>
     </div>
   </div>
