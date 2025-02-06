@@ -39,6 +39,8 @@ export class ModalComponent implements OnInit, OnDestroy {
   confirm_text: string;
   body_icone: BodyIcone;
   button_icone: ButtonIcone;
+  timeout_id: any;
+
   @Output() closeMeEvent = new EventEmitter();
   @Output() confirmEvent = new EventEmitter();
   ngOnInit(): void {
@@ -55,7 +57,7 @@ export class ModalComponent implements OnInit, OnDestroy {
       ? BUTTON_ICONES[this.params.button_icone]
       : null;
     if (this.timeout_ms) {
-      setTimeout(() => {
+      this.timeout_id = setTimeout(() => {
         this.closeMe();
       }, this.timeout_ms);
     }
@@ -68,5 +70,9 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.confirmEvent.emit();
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    if (this.timeout_id) {
+      clearTimeout(this.timeout_id);
+    }
+  }
 }
