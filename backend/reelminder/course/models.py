@@ -41,7 +41,7 @@ class Course(models.Model):
     is_public = models.BooleanField()
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     progress_sec = models.PositiveIntegerField()
-    progress_pct = models.PositiveIntegerField(null=True)
+    progress_pct = models.PositiveIntegerField()
     group = models.ForeignKey(Group, on_delete = models.SET_NULL, blank=True, null=True)
 
 class Note(models.Model):
