@@ -143,14 +143,6 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
     return Math.round(this.player.getCurrentTime());
   }
 
-  onKeyDown(event: KeyboardEvent) {
-    if (event.shiftKey && event.key === 'Enter') {
-      event.preventDefault(); // Zapobiega przejściu do nowej linii w `textarea`
-      console.log('Shift + Enter wciśnięte!');
-      this.addNote();
-    }
-  }
-
   addNote() {
     let noteContent = this.editor.summernote('code');
     let video_time_s = Math.round(this.player.getCurrentTime());

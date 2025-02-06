@@ -35,7 +35,6 @@ export class NavbarComponent implements OnInit {
   }
 
   buyCofee(params: any) {
-    console.log('start');
     this.sub = this.modalService
       .openModal(this.entry, params, BuyCofeeComponent)
       .subscribe((v) => {});

@@ -57,7 +57,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       content: this.content,
     };
 
-    console.log(this.feedbackForm.form.value);
     this.shared.sendFeedback(feedback).subscribe(
       (res) => {
         this.content = '';
