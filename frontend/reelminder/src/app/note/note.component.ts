@@ -10,6 +10,7 @@ import { SharedService } from '../shared.service';
 import { share, Subscription } from 'rxjs';
 import { ModalService } from '../shared/modal.service';
 import { ModalComponent } from '../modal/modal.component';
+import { EditNoteComponent } from '../edit-note/edit-note.component';
 
 @Component({
   selector: 'app-note',
@@ -50,6 +51,16 @@ export class NoteComponent {
       .openModal(this.entry, params, ModalComponent)
       .subscribe((v) => {
         this.deleteNote();
+      });
+  }
+
+  editNoteModal(params) {
+    this.sub = this.modalService
+      .openModal(this.entry, params, EditNoteComponent)
+      .subscribe((v) => {
+        setTimeout(() => {
+          this.refreshNotes.emit();
+        }, 100);
       });
   }
 

@@ -15,6 +15,13 @@
         &nbsp;
         <span>{{ secondsToTime(note.time_s) }}</span>
       </button>
+      <button
+        class="btn btn-light"
+        title="Edit"
+        (click)="editNoteModal({ note: note })"
+      >
+        <h5><i class="bi bi-pencil-square"></i></h5>
+      </button>
       <button class="btn btn-light" (click)="deleteNoteModal()" title="Remove">
         <h5><i class="bi bi-trash"></i></h5>
       </button>

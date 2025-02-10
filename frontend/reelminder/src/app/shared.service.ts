@@ -52,6 +52,13 @@ export class SharedService {
     return this.httpClient.delete<any[]>(this.APIUrl + '/note/' + id + '/');
   }
 
+  updateNote(id: number, note: any): Observable<any[]> {
+    return this.httpClient.patch<any[]>(
+      this.APIUrl + '/note/' + id + '/',
+      note
+    );
+  }
+
   getGroupList(): Observable<any[]> {
     return this.httpClient.get<any[]>(this.APIUrl + '/group-list/');
   }

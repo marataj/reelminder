@@ -25,6 +25,7 @@ import { AuthInterceptorService } from './authentication/auth-interceptor.servic
 import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { BuyCofeeComponent } from './buy-cofee/buy-cofee.component';
+import { EditNoteComponent } from './edit-note/edit-note.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { BuyCofeeComponent } from './buy-cofee/buy-cofee.component';
     ChangePasswordComponent,
     FeedbackComponent,
     BuyCofeeComponent,
+    EditNoteComponent,
   ],
   imports: [
     BrowserModule,
