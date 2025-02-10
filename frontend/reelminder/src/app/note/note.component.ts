@@ -1,6 +1,15 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { SharedService } from '../shared.service';
-import { share } from 'rxjs';
+import { share, Subscription } from 'rxjs';
+import { ModalService } from '../shared/modal.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-note',
@@ -8,7 +17,14 @@ import { share } from 'rxjs';
   styleUrl: './note.component.css',
 })
 export class NoteComponent {
-  constructor(private shared: SharedService) {}
+  @ViewChild('modal', { read: ViewContainerRef })
+  entry!: ViewContainerRef;
+  sub!: Subscription;
+
+  constructor(
+    private shared: SharedService,
+    private modalService: ModalService
+  ) {}
 
   @Input() note: any;
   @Output() videoTimeSet = new EventEmitter<{ time_s: number }>();
@@ -22,6 +38,19 @@ export class NoteComponent {
     this.shared.deleteNote(this.note.id).subscribe((res) => {
       this.refreshNotes.emit();
     });
+  }
+
+  deleteNoteModal() {
+    let params = {
+      title: `Are you sure to delete this note?`,
+      body_icone: 'question',
+      button_icone: `delete`,
+    };
+    this.sub = this.modalService
+      .openModal(this.entry, params, ModalComponent)
+      .subscribe((v) => {
+        this.deleteNote();
+      });
   }
 
   secondsToTime(seconds: number): string {
