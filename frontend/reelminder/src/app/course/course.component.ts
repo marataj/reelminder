@@ -116,7 +116,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
       width: width,
       videoId: this.video,
       playerVars: {
-        autoplay: 1,
+        autoplay: 0,
         modestbranding: 1,
         controls: 1,
         disablekb: 0,
@@ -124,6 +124,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
         showinfo: 0,
         fs: 0,
         playsinline: 1,
+        start: this.course.progress_sec,
       },
       events: {
         onStateChange: this.onPlayerStateChange.bind(this),
@@ -132,10 +133,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onPlayerReady(event) {
-    this.player.cueVideoById(this.course.movie_id);
-    this.player.seekTo(this.course.progress_sec, true);
-  }
+  onPlayerReady(event) {}
 
   onPlayerStateChange(event) {}
 
