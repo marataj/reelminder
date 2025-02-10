@@ -54,8 +54,8 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
         this.shared.getGroupById(this.course.group).subscribe((res) => {
           this.group = res;
         });
-    });
     this.startPlayer();
+	});
   }
 
   ngAfterViewInit(): void {
