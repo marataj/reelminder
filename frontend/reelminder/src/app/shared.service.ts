@@ -91,4 +91,8 @@ export class SharedService {
   sendFeedback(val: any): Observable<any> {
     return this.httpClient.post<any>(this.APIUrl + '/portal/feedback/', val);
   }
+
+  getNews(): Observable<any> {
+    return this.httpClient.get<any>(this.APIUrl + '/portal/news/');
+  }
 }

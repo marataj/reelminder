@@ -26,6 +26,8 @@ import { ChangePasswordComponent } from './authentication/change-password/change
 import { FeedbackComponent } from './feedback/feedback.component';
 import { BuyCofeeComponent } from './buy-cofee/buy-cofee.component';
 import { EditNoteComponent } from './edit-note/edit-note.component';
+import { NewsComponent } from './news/news.component';
+import { NewsCardComponent } from './news-card/news-card.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { EditNoteComponent } from './edit-note/edit-note.component';
     FeedbackComponent,
     BuyCofeeComponent,
     EditNoteComponent,
+    NewsComponent,
+    NewsCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -15,10 +15,12 @@ import {
 } from './authentication/auth-guard';
 import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { NewsComponent } from './news/news.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'feedback', component: FeedbackComponent },
+  { path: 'news', component: NewsComponent },
   {
     path: 'courses',
     component: CourseListComponent,
