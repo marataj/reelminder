@@ -35,11 +35,14 @@ services:
       - 8000:8000
     expose:
       - 8000
+    volumes:
+    - django_migrations:/app/migrations
     networks:
       - internalnet
 
 volumes:
   postgres_data: {}
+  django_migrations: {}
 
 networks:
   internalnet:

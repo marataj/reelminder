@@ -49,6 +49,12 @@ INSTALLED_APPS = [
     "portal",
 ]
 
+MIGRATION_MODULES = {
+    "course": "migrations.course",
+    "users": "migrations.users",
+    "portal": "migrations.portal",
+}
+
 CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST=("")
 CORS_ALLOW_CREDENTIALS = True
